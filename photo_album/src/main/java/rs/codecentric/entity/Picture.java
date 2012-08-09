@@ -23,8 +23,12 @@ import rs.codecentric.util.MutableEntity;
  */
 @Entity
 @Table(name = "picture")
-@NamedQueries({ @NamedQuery(name = "Picture.findAll", query = "SELECT p FROM Picture p ORDER BY p.pictureId"), @NamedQuery(name = "Picture.getByName", query = "SELECT p FROM Picture p WHERE p.name = :name ORDER BY p.pictureId"),
-		@NamedQuery(name = "Picture.getById", query = "SELECT p FROM Picture p WHERE p.pictureId = :pictureId") })
+@NamedQueries({ 
+	@NamedQuery(name = "Picture.findAll", query = "SELECT p FROM Picture p ORDER BY p.pictureId"), 
+	@NamedQuery(name = "Picture.getByName", query = "SELECT p FROM Picture p WHERE p.name = :name ORDER BY p.pictureId"),
+	@NamedQuery(name = "Picture.getById", query = "SELECT p FROM Picture p WHERE p.pictureId = :pictureId"),
+	@NamedQuery(name = "Picture.getAll4User", query = "SELECT p FROM Picture p JOIN p.pictureAlbum pa WHERE pa.albumOwner.userId = :userId ORDER BY p.pictureId")
+})
 public class Picture extends MutableEntity implements Serializable {
 
 	private static final long serialVersionUID = 6957425219334485686L;
@@ -84,5 +88,4 @@ public class Picture extends MutableEntity implements Serializable {
 		return "Picture [pictureId=" + pictureId + ", name=" + name + ", pictureAlbum=" + pictureAlbum.getAlbumName() + "]";
 	}
 
-	
 }

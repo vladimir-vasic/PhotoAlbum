@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.helpers.MessageFormatter;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,7 @@ public class PictureAlbumDAO implements IPictureAlbumDAO {
 	private SessionFactory sessionFactory;
 
 	public Boolean createNewUser(String userName, String userPassword, String userEmail) {
+		log.info(MessageFormatter.arrayFormat("Creating new user with params: userName - {} | userPassword - {} | userEmail - {}",new Object[]{userName, userPassword, userEmail}).getMessage());
 		Session session = sessionFactory.getCurrentSession();
 		Boolean retVal = Boolean.FALSE;
 		User user = new User();
