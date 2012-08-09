@@ -24,7 +24,6 @@ public class LoginDAO implements ILoginDAO {
 	private SessionFactory sessionFactory;
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public User login(String username, String password) {
 		User retVal = null;
 		Session session = sessionFactory.getCurrentSession();
