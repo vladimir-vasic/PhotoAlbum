@@ -43,6 +43,9 @@ public class User extends MutableEntity implements Serializable {
 	@Column(name = "user_email", unique = true, nullable = false)
 	private String userEmail;
 
+	@Column(name = "user_lib", unique = true)
+	private String userLib;
+	
 	@OneToMany
 	private List<User> friends;
 
@@ -96,6 +99,14 @@ public class User extends MutableEntity implements Serializable {
 
 	public void setUserAlbums(List<PictureAlbum> userAlbums) {
 		this.userAlbums = userAlbums;
+	}
+
+	public String getUserLib() {
+		return userLib;
+	}
+
+	public void setUserLib(String userLib) {
+		this.userLib = userLib;
 	}
 
 	@Override

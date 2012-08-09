@@ -3,12 +3,27 @@
  */
 package rs.codecentric.util.rest;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import org.jboss.resteasy.util.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.helpers.MessageFormatter;
+
+import rs.codecentric.exception.BusinessErrorCode;
+import rs.codecentric.exception.BusinessException;
+import rs.codecentric.util.PhotoAlbumUtil;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -20,7 +35,11 @@ import com.google.gson.JsonSyntaxException;
  * 
  */
 public final class RestUtil {
+	
+	final static Logger log = LoggerFactory.getLogger(PhotoAlbumUtil.class);
 
+	private static final String codecentricCompanyCode = "CODECENTRIC";
+	
 	public static String toJSon(Object obj) {
 		if (obj == null) {
 			return "";
@@ -138,4 +157,49 @@ public final class RestUtil {
 //			return Response.status(Response.Status.BAD_REQUEST).entity("Invalid json string.").build();
 //		}
 //	}
+	
+	public static boolean companyExists(String companyCode) throws BusinessException {
+        try {
+        	log.info(MessageFormatter.format("COMPANY CODE: {} ", companyCode).getMessage());
+			return companyCode.equals(codecentricCompanyCode);
+        } catch (Exception exc) {
+            log.error(MessageFormatter.format("Error loading company with company code: {}", companyCode).getMessage(), exc);
+            throw new BusinessException(BusinessErrorCode.API_ERROR_LOADING_COMPANY, exc, companyCode);
+        }
+    }
+	
+	public static byte[] readImageByteStream(String imageName) {
+		byte[] retVal = null;
+		log.info("Reading in binary file named : {}", imageName);
+		File file = new File("D:\\Documents\\Images\\".concat(imageName));
+		log.info("File size: {}", file.length());
+		retVal = new byte[(int) file.length()];
+		try {
+			InputStream input = null;
+			try {
+				int totalBytesRead = 0;
+				input = new BufferedInputStream(new FileInputStream(file));
+				while (totalBytesRead < retVal.length) {
+					int bytesRemaining = retVal.length - totalBytesRead;
+					// input.read() returns -1, 0, or more :
+					int bytesRead = input.read(retVal, totalBytesRead, bytesRemaining);
+					if (bytesRead > 0) {
+						totalBytesRead = totalBytesRead + bytesRead;
+					}
+				}
+				log.info("Num bytes read: {}", totalBytesRead);
+			} finally {
+				log.info("Closing input stream.");
+				input.close();
+			}
+		} catch (FileNotFoundException ex) {
+			log.error("File not found.");
+		} catch (IOException ex) {
+			log.error(ex.getLocalizedMessage());
+		}
+//		String tmp = null;
+//		tmp = Base64.encodeBytes(retVal);
+//		return tmp.getBytes();
+		return retVal;
+	}
 }
