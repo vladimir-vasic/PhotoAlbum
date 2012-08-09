@@ -28,6 +28,7 @@ public class LoginDAO implements ILoginDAO {
 	public User login(String username, String password) {
 		User retVal = null;
 		Session session = sessionFactory.getCurrentSession();
+		
 		String hql = "FROM User u WHERE u.userName = :username AND u.userPassword = :password";
 		List<User> userList = session.createQuery(hql)
 				.setParameter("username", username)
