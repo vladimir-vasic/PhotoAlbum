@@ -5,6 +5,7 @@ package rs.codecentric.rest.api;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -58,6 +59,7 @@ public class PictureAlbumAPI implements IPictureAlbumAPI, Serializable {
 				log.info("There is no picture list for user with userId: 1.");
 			}
 		} catch (Exception exc) {
+			log.error("COULD NOT FATCH ALL PICTURES !!!", exc);
 			throw new BusinessException(BusinessErrorCode.API_ERROR_GETTING_ALL_PICTURES, "Could not retrieve all pictures", exc);
 		}
 		return retVal;
@@ -74,6 +76,7 @@ public class PictureAlbumAPI implements IPictureAlbumAPI, Serializable {
 			picture.setPictureAlbum(pictureAlbum);
 			picture.setName(pictureName);
 			picture.setContent(RestUtil.readImageByteStream(pictureName));
+			picture.setCreateDateTime(new Date());
 			session.save(picture);
 			List<Picture> pictureList = new ArrayList<Picture>();
 			pictureList.add(picture);
@@ -96,9 +99,14 @@ public class PictureAlbumAPI implements IPictureAlbumAPI, Serializable {
 		return retVal;
 	}
 	
-	public User loadUserByUserId(Long userId) {
-		Session session = sessionFactory.getCurrentSession();
-		User retVal = (User)session.get(User.class, userId);
+	public User loadUserByUserId(Long userId) throws BusinessException {
+		User retVal = null;
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			retVal = (User)session.get(User.class, userId);
+		} catch (Exception exc) {
+			throw new BusinessException(BusinessErrorCode.API_ERROR_LOADING_USER, "Could not load user", exc);
+		}
 		return retVal;
 	}
 	

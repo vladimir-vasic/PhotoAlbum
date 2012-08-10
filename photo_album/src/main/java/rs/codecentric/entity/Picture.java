@@ -1,9 +1,12 @@
 package rs.codecentric.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,9 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
-import rs.codecentric.util.MutableEntity;
 
 /**
  * @author vladimir.vasic@codecentric.de
@@ -23,13 +26,10 @@ import rs.codecentric.util.MutableEntity;
  */
 @Entity
 @Table(name = "picture")
-@NamedQueries({ 
-	@NamedQuery(name = "Picture.findAll", query = "SELECT p FROM Picture p ORDER BY p.pictureId"), 
-	@NamedQuery(name = "Picture.getByName", query = "SELECT p FROM Picture p WHERE p.name = :name ORDER BY p.pictureId"),
-	@NamedQuery(name = "Picture.getById", query = "SELECT p FROM Picture p WHERE p.pictureId = :pictureId"),
-	@NamedQuery(name = "Picture.getAll4User", query = "SELECT p FROM Picture p JOIN p.pictureAlbum pa WHERE pa.albumOwner.userId = :userId ORDER BY p.pictureId")
-})
-public class Picture extends MutableEntity implements Serializable {
+@NamedQueries({ @NamedQuery(name = "Picture.findAll", query = "SELECT p FROM Picture p ORDER BY p.pictureId"), @NamedQuery(name = "Picture.getByName", query = "SELECT p FROM Picture p WHERE p.name = :name ORDER BY p.pictureId"),
+		@NamedQuery(name = "Picture.getById", query = "SELECT p FROM Picture p WHERE p.pictureId = :pictureId"),
+		@NamedQuery(name = "Picture.getAll4User", query = "SELECT p FROM Picture p JOIN p.pictureAlbum pa WHERE pa.albumOwner.userId = :userId ORDER BY p.pictureId") })
+public class Picture implements Serializable {
 
 	private static final long serialVersionUID = 6957425219334485686L;
 
@@ -46,9 +46,17 @@ public class Picture extends MutableEntity implements Serializable {
 	@Lob
 	private byte[] content;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "album_id")
 	private PictureAlbum pictureAlbum;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "create_datetime")
+	private Date createDateTime;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "update_datetime")
+	private Date updateDateTime;
 
 	// getters setters
 	public Long getPictureId() {
@@ -81,6 +89,22 @@ public class Picture extends MutableEntity implements Serializable {
 
 	public void setPictureAlbum(PictureAlbum pictureAlbum) {
 		this.pictureAlbum = pictureAlbum;
+	}
+
+	public Date getCreateDateTime() {
+		return createDateTime;
+	}
+
+	public void setCreateDateTime(Date createDateTime) {
+		this.createDateTime = createDateTime;
+	}
+
+	public Date getUpdateDateTime() {
+		return updateDateTime;
+	}
+
+	public void setUpdateDateTime(Date updateDateTime) {
+		this.updateDateTime = updateDateTime;
 	}
 
 	@Override
