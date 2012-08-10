@@ -44,8 +44,7 @@ public class PictureAlbumController {
 	@RequestMapping(value = "/newuser", method = RequestMethod.POST)
 	public String createNewUser(@ModelAttribute("User") User user) {
 		log.info(MessageFormatter.arrayFormat("Trying to crete new user with params: userName - {} | userPassword - {} | userEmail - {}", new Object[] { user.getUserName(), user.getUserPassword(), user.getUserEmail() }).getMessage());
-		Boolean result = albumService.createNewUser(user.getUserName(), user.getUserPassword(), user.getUserEmail());
-		;
+		albumService.createNewUser(user.getUserName(), user.getUserPassword(), user.getUserEmail());
 		log.info("New user created seccessfully.");
 		return "newUserAdded";
 	}

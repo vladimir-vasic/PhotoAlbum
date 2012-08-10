@@ -1,6 +1,7 @@
 package rs.codecentric.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -38,6 +39,7 @@ public class PictureAlbumDAO implements IPictureAlbumDAO {
 		user.setUserName(userName);
 		user.setUserPassword(userPassword);
 		user.setUserEmail(userEmail);
+		user.setCreateDateTime(new Date());
 		session.save(user);
 		retVal = Boolean.TRUE;
 		return retVal;
