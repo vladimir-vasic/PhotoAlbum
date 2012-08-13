@@ -49,6 +49,7 @@ public class LoginController {
 		System.out.println("USER------------" + u.getUserName());
 		model.addAttribute("User", u);
 		return "loginMsg";
+
 	}
 
 }

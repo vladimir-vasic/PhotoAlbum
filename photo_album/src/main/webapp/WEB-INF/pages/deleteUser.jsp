@@ -10,28 +10,28 @@
 </head>
 <body>
 
-	<h1>Create New User</h1>
+	<h1>Delete User</h1>
 
-	<c:url var="saveUrl" value="/rest/newuser" />
-	<form:form modelAttribute="User" method="POST" action="${saveUrl}">
+	<c:url var="deleteUserUrl" value="/rest/deleteuser?userId=${User.userId}" />
+	<form:form modelAttribute="User" method="POST" action="${deleteUserUrl}">
 		<table>
 			<tr>
 				<td align="left">User Name:</td>
-				<td><form:input path="userName" /></td>
+				<td><form:input path="userName" readonly="readonly"/></td>
 			</tr>
 
 			<tr>
 				<td align="left">User Password:</td>
-				<td><form:input path="userPassword" /></td>
+				<td><form:input path="userPassword" readonly="readonly"/></td>
 			</tr>
 
 			<tr>
 				<td align="left">User Email:</td>
-				<td><form:input path="userEmail" /></td>
+				<td><form:input path="userEmail" readonly="readonly"/></td>
 			</tr>
 		</table>
 
-		<input type="submit" value="Save" />
+		<input type="submit" value="Delete" />
 	</form:form>
 
 </body>

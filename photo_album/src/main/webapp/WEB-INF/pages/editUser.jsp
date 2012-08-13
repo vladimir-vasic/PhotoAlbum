@@ -10,10 +10,10 @@
 </head>
 <body>
 
-	<h1>Create New User</h1>
+	<h1>Update User</h1>
 
-	<c:url var="saveUrl" value="/rest/newuser" />
-	<form:form modelAttribute="User" method="POST" action="${saveUrl}">
+	<c:url var="updateUserUrl" value="/rest/updateuser?userId=${User.userId}" />
+	<form:form modelAttribute="User" method="POST" action="${updateUserUrl}">
 		<table>
 			<tr>
 				<td align="left">User Name:</td>
@@ -31,7 +31,7 @@
 			</tr>
 		</table>
 
-		<input type="submit" value="Save" />
+		<input type="submit" value="Update" />
 	</form:form>
 
 </body>

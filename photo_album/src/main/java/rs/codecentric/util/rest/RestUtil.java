@@ -21,11 +21,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.MessageFormatter;
 
+import rs.codecentric.entity.Picture;
 import rs.codecentric.exception.BusinessErrorCode;
 import rs.codecentric.exception.BusinessException;
+import rs.codecentric.rest.adapter.PictureAdapter;
 import rs.codecentric.util.PhotoAlbumUtil;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
@@ -197,9 +200,14 @@ public final class RestUtil {
 		} catch (IOException ex) {
 			log.error(ex.getLocalizedMessage());
 		}
-//		String tmp = null;
-//		tmp = Base64.encodeBytes(retVal);
-//		return tmp.getBytes();
-		return retVal;
+		String tmp = null;
+		tmp = Base64.encodeBytes(retVal);
+		return tmp.getBytes();
+	}
+	
+	public static String pictureListToJson(List<Picture> pictureList) {  
+	    GsonBuilder gsonBuilder = new GsonBuilder();
+	    Gson gson = gsonBuilder.registerTypeAdapter(Picture.class, new PictureAdapter()).create();
+	    return gson.toJson(pictureList);
 	}
 }

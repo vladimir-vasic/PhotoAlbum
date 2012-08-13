@@ -12,7 +12,7 @@
 
 <h1>Users</h1>
 
-<p>You have added a new user at <%= new java.util.Date() %></p>
+<p>You have deleted user at <%= new java.util.Date() %></p>
 
 <c:url var="mainUrl" value="/rest/useradmin" />
 <p>Return to <a href="${mainUrl}">user admin page.</a></p>

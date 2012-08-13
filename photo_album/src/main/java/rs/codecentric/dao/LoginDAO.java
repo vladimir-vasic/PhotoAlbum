@@ -32,6 +32,7 @@ public class LoginDAO implements ILoginDAO {
 		List<User> userList = session.createQuery(hql)
 				.setParameter("userName", username)
 				.setParameter("userPassword", password).list();
+
 		if (userList != null && !userList.isEmpty()) {
 			retVal = userList.get(0);
 		}

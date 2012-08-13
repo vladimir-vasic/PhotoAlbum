@@ -1,6 +1,7 @@
 package rs.codecentric.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -23,7 +24,7 @@ import rs.codecentric.util.PhotoAlbumUtil;
 @Repository("pictureAlbumService")
 // Default is read only
 @Transactional
-public class PictureAlbumDAO implements IPictureAlbumDAO {
+public class UserAdminDAO implements IUserAdminDAO {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -38,6 +39,7 @@ public class PictureAlbumDAO implements IPictureAlbumDAO {
 		user.setUserName(userName);
 		user.setUserPassword(userPassword);
 		user.setUserEmail(userEmail);
+		user.setCreateDateTime(new Date());
 		session.save(user);
 		retVal = Boolean.TRUE;
 		return retVal;
@@ -91,6 +93,46 @@ public class PictureAlbumDAO implements IPictureAlbumDAO {
 				.list();
 		if (userList != null && !userList.isEmpty()) {
 			retVal = userList.get(0);
+		}
+		return retVal;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<User> getAllUsers() {
+		List<User> retVal = null;
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from User u";
+		retVal = session.createQuery(hql).list();
+		return retVal;
+	}
+	
+	public User loadUserById(Long userId) {
+		User retVal = null;
+		Session session = sessionFactory.getCurrentSession();
+		retVal = (User) session.get(User.class, userId);
+		return retVal;
+	}
+
+	public Boolean updateUser(User user) {
+		Boolean retVal = Boolean.FALSE;
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			session.update(user);
+			retVal = Boolean.TRUE;
+		} catch (HibernateException exc) {
+			log.error("ERROR WHILE UPDATING USER", exc);
+		}
+		return retVal;
+	}
+
+	public Boolean deleteUser(User user) {
+		Boolean retVal = Boolean.FALSE;
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			session.delete(user);
+			retVal = Boolean.TRUE;
+		} catch (HibernateException exc) {
+			log.error("ERROR WHILE DELETING USER", exc);
 		}
 		return retVal;
 	}
