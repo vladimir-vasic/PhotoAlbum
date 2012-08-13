@@ -5,7 +5,7 @@ import java.util.List;
 import rs.codecentric.entity.PictureAlbum;
 import rs.codecentric.entity.User;
 
-public interface IPictureAlbumDAO {
+public interface IUserAdminDAO {
 	
 	public Boolean createNewUser(String userName, String userPassword, String userEmail);
 	
@@ -16,4 +16,12 @@ public interface IPictureAlbumDAO {
 	public List<PictureAlbum> getAllPictureAlbums4User(Long userId);
 	
 	public User loadUserByUsrPwd(String userName, String userPassword);
+	
+	public List<User> getAllUsers();
+	
+	public User loadUserById(Long userId);
+	
+	public Boolean updateUser(User user);
+	
+	public Boolean deleteUser(User user);
 }

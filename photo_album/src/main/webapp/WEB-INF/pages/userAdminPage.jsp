@@ -13,8 +13,8 @@
 	<h1>User administration</h1>
 
 	<c:url var="addUserUrl" value="/rest/newuser" />
-	<c:url var="editUserUrl" value="/rest/newuser" />
-	<c:url var="deleteUserUrl" value="/rest/newuser" />
+	<c:url var="editUserUrl" value="/rest/viewallusers" />
+	<c:url var="deleteUserUrl" value="/rest/viewallusers" />
 
 	<table>
 		<tr>
