@@ -42,7 +42,7 @@ public class PictureController {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	
-	
+	// TEST COMMIT
 	@RequestMapping(value = "/pictures/all", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> getAllPictures(@RequestHeader(value = "Authorization", required = false) String serverUsername) {
