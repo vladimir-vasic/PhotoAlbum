@@ -27,11 +27,11 @@ public class LoginDAO implements ILoginDAO {
 	public User login(String username, String password) {
 		User retVal = null;
 		Session session = sessionFactory.getCurrentSession();
-		
-		String hql = "FROM User u WHERE u.userName = :username AND u.userPassword = :password";
+
+		String hql = "FROM User WHERE userName = :userName AND userPassword = :userPassword";
 		List<User> userList = session.createQuery(hql)
-				.setParameter("username", username)
-				.setParameter("password", password).list();
+				.setParameter("userName", username)
+				.setParameter("userPassword", password).list();
 		if (userList != null && !userList.isEmpty()) {
 			retVal = userList.get(0);
 		}
