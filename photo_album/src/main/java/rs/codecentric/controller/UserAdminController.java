@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import rs.codecentric.dao.IUserAdminDAO;
@@ -23,6 +24,7 @@ import rs.codecentric.entity.User;
 
 @Controller
 @RequestMapping("/rest")
+@SessionAttributes("User")
 public class UserAdminController {
 
 	@Autowired
@@ -30,69 +32,70 @@ public class UserAdminController {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@RequestMapping(value = "/useradmin", method = RequestMethod.GET)
+	@RequestMapping(value = "/userAdmin", method = RequestMethod.GET)
 	public String showUserAdminForm(ModelMap model) {
 		log.info("Displays user admin page");
-		return "userAdminPage";
+		log.info("Displays all users for editing in list box");
+		List<User> userList = userService.getAllUsers();
+		model.addAttribute("userList", userList);
+		return "viewAllUsers";
 	}
 
-	@RequestMapping(value = "/newuser", method = RequestMethod.GET)
+	@RequestMapping(value = "/newUser", method = RequestMethod.GET)
 	public String showNewUserSubscribeForm(ModelMap model) {
 		log.info("Displays new user submit page");
 		model.addAttribute("User", new User());
-		return "addNewUser";
+		return "newUser";
 	}
 
-	@RequestMapping(value = "/newuser", method = RequestMethod.POST)
+	@RequestMapping(value = "/newUser", method = RequestMethod.POST)
 	public String createNewUser(@ModelAttribute("User") User user) {
 		log.info(MessageFormatter.arrayFormat("Trying to crete new user with params: userName - {} | userPassword - {} | userEmail - {}", new Object[] { user.getUserName(), user.getUserPassword(), user.getUserEmail() }).getMessage());
 		userService.createNewUser(user.getUserName(), user.getUserPassword(), user.getUserEmail());
 		log.info("New user created seccessfully.");
-		return "newUserAdded";
+		return "userAdded";
 	}
 
-	@RequestMapping(value = "/viewallusers", method = RequestMethod.GET)
+	@RequestMapping(value = "/viewAllUsers", method = RequestMethod.GET)
 	public String showAllUserForm(ModelMap model) {
 		log.info("Displays all users for editing in list box");
 		List<User> userList = userService.getAllUsers();
 		model.addAttribute("userList", userList);
 		return "viewAllUsers";
 	}
-	
-	@RequestMapping(value = "/edituser", method = RequestMethod.GET)
-	public String showEditUserForm(@RequestParam(value="userId", required=true) Long userId, Model model) {
+
+	@RequestMapping(value = "/editUser", method = RequestMethod.GET)
+	public String showEditUserForm(@RequestParam(value = "userId", required = true) Long userId, Model model) {
 		log.info("Displays user edit page");
 		User user = userService.loadUserById(userId);
 		model.addAttribute("User", user);
 		return "editUser";
 	}
-	
-	@RequestMapping(value = "/updateuser", method = RequestMethod.POST)
-	public String showUpdatedUserForm(@RequestParam(value="userId", required=true) Long userId,
-			@ModelAttribute("User") User user) {
+
+	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+	public String showUpdatedUserForm(@RequestParam(value = "userId", required = true) Long userId, @ModelAttribute("User") User user) {
 		log.info("Displays updated user page");
 		userService.updateUser(user);
 		log.info("User updated seccessfully.");
 		return "userUpdated";
 	}
 	
-	@RequestMapping(value = "/deleteuser", method = RequestMethod.GET)
-	public String showDeleteUserForm(@RequestParam(value="userId", required=true) Long userId, Model model) {
+	@RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
+	public String showDeleteUserForm(@RequestParam(value = "userId", required = true) Long userId, Model model) {
 		log.info("Displays user delete page");
 		User user = userService.loadUserById(userId);
 		model.addAttribute("User", user);
 		return "deleteUser";
 	}
-	
-	@RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
-	public String showDeletedUserForm(@RequestParam(value="userId", required=true) Long userId,
-			@ModelAttribute("User") User user) {
+
+	@RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
+	public String showDeletedUserForm(@RequestParam(value = "userId", required = true) Long userId, @ModelAttribute("User") User user) {
 		log.info("Displays deleted user page");
 		userService.deleteUser(user);
 		log.info("User deleted seccessfully.");
 		return "userDeleted";
 	}
-	
+
 	// @RequestMapping(value="/user", method = RequestMethod.POST)
 	// public Response createNewUserJson(
 	// @RequestParam(value="userName", required=true) String userName,

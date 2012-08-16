@@ -1,7 +1,7 @@
 /**
  * 
  */
-package rs.codecentric.rest.Picture;
+package rs.codecentric.rest.controller;
 
 import java.util.List;
 

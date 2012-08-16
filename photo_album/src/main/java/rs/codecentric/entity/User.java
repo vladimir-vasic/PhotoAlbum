@@ -52,7 +52,7 @@ public class User implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<User> friends;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<PictureAlbum> userAlbums;
 
 	@Temporal(TemporalType.TIMESTAMP)

@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -56,7 +57,7 @@ public class PictureAlbum implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_datetime")
 	private Date updateDateTime;
-	
+
 	// getters setters
 	public Long getAlbumId() {
 		return albumId;
@@ -111,4 +112,11 @@ public class PictureAlbum implements Serializable {
 		return "PictureAlbum [albumId=" + albumId + ", albumName=" + albumName + "albumOwner=" + albumOwner.getUserName() + "]";
 	}
 
+	@PrePersist
+	public void beforeCreate() {
+		if (this.createDateTime == null) {
+			this.createDateTime = new Date();
+		}
+	}
+	
 }

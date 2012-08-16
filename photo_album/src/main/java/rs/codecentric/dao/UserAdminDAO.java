@@ -137,4 +137,10 @@ public class UserAdminDAO implements IUserAdminDAO {
 		return retVal;
 	}
 
+	public PictureAlbum loadPictureAlbumById(Long pictureAlbumId) {
+		PictureAlbum retVal = null;
+		Session session = sessionFactory.getCurrentSession();
+		retVal = (PictureAlbum) session.get(PictureAlbum.class, pictureAlbumId);
+		return retVal;
+	}
 }

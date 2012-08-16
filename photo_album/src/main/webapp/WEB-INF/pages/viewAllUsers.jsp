@@ -6,14 +6,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Photo Album</title>
 </head>
 <body>
 
-	<h1>Edit/Delete User</h1>
+	<h1>User Administration</h1>
 
-	<c:url var="editUserUrl" value="/rest/edituser?userId=${userId}" />
-	<c:url var="deleteUserUrl" value="/rest/deleteuser?userId=${userId}" />
+	<c:url var="addUserUrl" value="/rest/newUser" />
+	<c:url var="editUserUrl" value="/rest/editUser?userId=${userId}" />
+	<c:url var="deleteUserUrl" value="/rest/deleteUser?userId=${userId}" />
 	<form:form modelAttribute="userList" method="GET" action="${editUserUrl}">
 		<table>
 			<tr>
@@ -23,9 +24,10 @@
 							<option value="${User.userId}">${User.userName}</option>
 						</c:forEach>
 					</select>
-				<td>
+				</td>
 			</tr>
 		</table>
+		<input type="submit" value="Add New" onClick="this.form.action = '${addUserUrl}';"/>
 		<input type="submit" value="Edit" onClick="this.form.action = '${editUserUrl}';"/>
 		<input type="submit" value="Delete" onClick="this.form.action = '${deleteUserUrl}';"/>
 	</form:form>

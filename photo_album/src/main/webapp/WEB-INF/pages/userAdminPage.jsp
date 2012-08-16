@@ -6,15 +6,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Photo Album</title>
 </head>
 <body>
 
 	<h1>User administration</h1>
 
-	<c:url var="addUserUrl" value="/rest/newuser" />
-	<c:url var="editUserUrl" value="/rest/viewallusers" />
-	<c:url var="deleteUserUrl" value="/rest/viewallusers" />
+	<c:url var="addUserUrl" value="/rest/newUser" />
+	<c:url var="editUserUrl" value="/rest/viewAllusers" />
+	<c:url var="deleteUserUrl" value="/rest/viewAllusers" />
 
 	<table>
 		<tr>

@@ -24,4 +24,6 @@ public interface IUserAdminDAO {
 	public Boolean updateUser(User user);
 	
 	public Boolean deleteUser(User user);
+	
+	public PictureAlbum loadPictureAlbumById(Long pictureAlbumId);
 }

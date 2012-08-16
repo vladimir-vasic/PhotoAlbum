@@ -6,15 +6,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Photo Album</title>
 </head>
 <body>
 
 <h1>Users</h1>
 
-<p>You have added a new user at <%= new java.util.Date() %></p>
+<p>You have added a new user photo album at <%= new java.util.Date() %></p>
 
-<c:url var="mainUrl" value="/rest/useradmin" />
+<c:url var="mainUrl" value="/rest/userAdmin" />
 <p>Return to <a href="${mainUrl}">user admin page.</a></p>
 
 </body>

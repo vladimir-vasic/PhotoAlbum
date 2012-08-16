@@ -6,13 +6,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Photo Album</title>
 </head>
 <body>
 
 	<h1>Create New User</h1>
 
-	<c:url var="saveUrl" value="/rest/newuser" />
+	<c:url var="saveUrl" value="/rest/newUser" />
 	<form:form modelAttribute="User" method="POST" action="${saveUrl}">
 		<table>
 			<tr>

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Photo Album</title>
 </head>
 <body>
 
@@ -14,7 +14,7 @@
 
 <p>You have updated user at <%= new java.util.Date() %></p>
 
-<c:url var="mainUrl" value="/rest/useradmin" />
+<c:url var="mainUrl" value="/rest/userAdmin" />
 <p>Return to <a href="${mainUrl}">user admin page.</a></p>
 
 </body>

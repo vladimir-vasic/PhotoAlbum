@@ -6,28 +6,36 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Photo Album</title>
+<script type="text/javascript">
+	function disableFields() {
+		document.getElementById("userName").readOnly = true;
+		document.getElementById("userPassword").readOnly = true;
+		document.getElementById("userEmail").readOnly = true;
+	}
+	window.onload = disableFields;
+</script>
 </head>
 <body>
 
 	<h1>Delete User</h1>
 
-	<c:url var="deleteUserUrl" value="/rest/deleteuser?userId=${User.userId}" />
+	<c:url var="deleteUserUrl" value="/rest/deleteUser?userId=${User.userId}" />
 	<form:form modelAttribute="User" method="POST" action="${deleteUserUrl}">
 		<table>
 			<tr>
 				<td align="left">User Name:</td>
-				<td><form:input path="userName" readonly="readonly"/></td>
+				<td><form:input id="userName" path="userName" /></td>
 			</tr>
 
 			<tr>
 				<td align="left">User Password:</td>
-				<td><form:input path="userPassword" readonly="readonly"/></td>
+				<td><form:input id="userPassword" path="userPassword" /></td>
 			</tr>
 
 			<tr>
 				<td align="left">User Email:</td>
-				<td><form:input path="userEmail" readonly="readonly"/></td>
+				<td><form:input id="userEmail" path="userEmail" /></td>
 			</tr>
 		</table>
 

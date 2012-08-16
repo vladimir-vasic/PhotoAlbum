@@ -6,13 +6,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Photo Album</title>
 </head>
 <body>
 
 	<h1>Update User</h1>
 
-	<c:url var="updateUserUrl" value="/rest/updateuser?userId=${User.userId}" />
+	<c:url var="updateUserUrl" value="/rest/updateUser?userId=${User.userId}" />
+	<c:url var="alluserphotoalbums" value="/rest/${User.userId}/allUserPhotoAlbums" />
 	<form:form modelAttribute="User" method="POST" action="${updateUserUrl}">
 		<table>
 			<tr>
@@ -31,7 +32,8 @@
 			</tr>
 		</table>
 
-		<input type="submit" value="Update" />
+		<input type="submit" value="Update" onClick="this.form.action = '${updateUserUrl}';"/>
+		<input type="submit" value="View Photo Albums" onClick="this.form.action = '${alluserphotoalbums}';"/>
 	</form:form>
 
 </body>
