@@ -9,12 +9,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import rs.codecentric.dao.ILoginDAO;
 import rs.codecentric.entity.User;
 
 @Controller
 @RequestMapping("/login")
+@SessionAttributes("User")
 public class LoginController {
 
 	@Autowired
@@ -48,7 +50,7 @@ public class LoginController {
 		User u = loginService.login(user.getUserName(), user.getUserPassword());
 		System.out.println("USER------------" + u.getUserName());
 		model.addAttribute("User", u);
-		return "loginMsg";
+		return "index";
 
 	}
 
