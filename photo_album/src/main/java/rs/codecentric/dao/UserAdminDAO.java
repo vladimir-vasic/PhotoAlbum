@@ -116,6 +116,7 @@ public class UserAdminDAO implements IUserAdminDAO {
 	public Boolean updateUser(User user) {
 		Boolean retVal = Boolean.FALSE;
 		try {
+			log.info("Updating user...");
 			Session session = sessionFactory.getCurrentSession();
 			session.update(user);
 			retVal = Boolean.TRUE;
@@ -141,6 +142,32 @@ public class UserAdminDAO implements IUserAdminDAO {
 		PictureAlbum retVal = null;
 		Session session = sessionFactory.getCurrentSession();
 		retVal = (PictureAlbum) session.get(PictureAlbum.class, pictureAlbumId);
+		return retVal;
+	}
+
+	public Boolean updatePictureAlbum(PictureAlbum pictureAlbum) {
+		Boolean retVal = Boolean.FALSE;
+		try {
+			log.info("Updating picture album...");
+			Session session = sessionFactory.getCurrentSession();
+			session.update(pictureAlbum);
+			retVal = Boolean.TRUE;
+		} catch (HibernateException exc) {
+			log.error("ERROR WHILE UPDATING PICTURE ALBUM", exc);
+		}
+		return retVal;
+	}
+	
+	public Boolean deletePictureAlbumById(PictureAlbum pictureAlbum) {
+		Boolean retVal = Boolean.FALSE;
+		try {
+			log.info("Deleting picture album...");
+			Session session = sessionFactory.getCurrentSession();
+			session.delete(pictureAlbum);
+			retVal = Boolean.TRUE;
+		} catch (HibernateException exc) {
+			log.error("ERROR WHILE DELETING PICTURE ALBUM", exc);
+		}
 		return retVal;
 	}
 }

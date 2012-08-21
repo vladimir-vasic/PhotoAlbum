@@ -24,6 +24,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 /**
  * @author vladimir.vasic@codecentric.de
  * 
@@ -43,7 +46,8 @@ public class PictureAlbum implements Serializable {
 	@Column(name = "album_name", nullable = false)
 	private String albumName;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Picture> albumPictures;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -109,7 +113,7 @@ public class PictureAlbum implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PictureAlbum [albumId=" + albumId + ", albumName=" + albumName + "albumOwner=" + albumOwner.getUserName() + "]";
+		return "PictureAlbum [albumId=" + albumId + ", albumName=" + albumName + "]";
 	}
 
 	@PrePersist
