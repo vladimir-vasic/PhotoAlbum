@@ -21,6 +21,8 @@
 	<h1>User Photo Albums</h1>
 
 	<c:url var="addUserPhotoAlbumUrl" value="/rest/${userId}/addUserPhotoAlbum" />
+	<c:url var="updateUserPhotoAlbumUrl" value="/rest/${userId}/updateUserPhotoAlbum/?albumId=${albumId}" />
+	<c:url var="deleteUserPhotoAlbumUrl" value="/rest/${userId}/deleteUserPhotoAlbum/?albumId=${albumId}" />
 	<form:form modelAttribute="User" method="GET" action="${addUserPhotoAlbumUrl}">
 		<table>
 			<tr>
@@ -34,6 +36,8 @@
 			</tr>
 		</table>
 		<input type="submit" value="Add New Photo Album" onClick="this.form.action = '${addUserPhotoAlbumUrl}';"/>
+		<input type="submit" value="Edit Photo Album" onClick="this.form.action = '${updateUserPhotoAlbumUrl}';"/>
+		<input type="submit" value="Delete Photo Album" onClick="this.form.action = '${deleteUserPhotoAlbumUrl}';"/>
 	</form:form>
 </body>
 </html>
