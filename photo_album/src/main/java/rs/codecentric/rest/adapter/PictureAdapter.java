@@ -23,7 +23,7 @@ public class PictureAdapter implements JsonSerializer<Picture> {
         jsonObject.addProperty("pictureId", picture.getPictureId());
         jsonObject.addProperty("name", picture.getName());
         jsonObject.addProperty("createdDateTime", picture.getCreateDateTime().toString());
-        jsonObject.addProperty("createdDateTime", new String(picture.getContent()));
+        jsonObject.addProperty("pictureContent", new String(picture.getContent()));
         return jsonObject;      
     }
 }

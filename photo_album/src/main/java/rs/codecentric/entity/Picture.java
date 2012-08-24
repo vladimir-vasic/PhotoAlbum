@@ -18,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -58,6 +59,9 @@ public class Picture implements Serializable {
 	@Column(name = "update_datetime")
 	private Date updateDateTime;
 
+	@Transient
+	private String contentString;
+	
 	// getters setters
 	public Long getPictureId() {
 		return pictureId;
@@ -107,6 +111,11 @@ public class Picture implements Serializable {
 		this.updateDateTime = updateDateTime;
 	}
 
+	public String getContentString()
+	{
+	   return new String(this.content);
+	}
+	
 	@Override
 	public String toString() {
 		return "Picture [pictureId=" + pictureId + ", name=" + name + ", pictureAlbum=" + pictureAlbum.getAlbumName() + "]";

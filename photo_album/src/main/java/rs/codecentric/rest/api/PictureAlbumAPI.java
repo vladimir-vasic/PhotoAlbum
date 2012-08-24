@@ -48,8 +48,7 @@ public class PictureAlbumAPI implements IPictureAlbumAPI, Serializable {
 		try {
 			log.info("Getting list of all pictures");
 			Session session = sessionFactory.getCurrentSession();
-			Query getAllPicturesQuery = session.getNamedQuery("Picture.getAll4User");
-			getAllPicturesQuery.setParameter("userId", 1L);
+			Query getAllPicturesQuery = session.getNamedQuery("Picture.findAll");
 			List<Picture> pictureList = getAllPicturesQuery.list();
 			if (pictureList != null && pictureList.size() > 0) {
 				retVal = pictureList;
