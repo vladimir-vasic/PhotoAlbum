@@ -6,6 +6,7 @@ package rs.codecentric.controller;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.jboss.resteasy.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class PicController {
 	}
 
 	@RequestMapping(value = "/addPictureToPhotoAlbum", method = RequestMethod.POST)
-	public String showNewPictureAddedToPhotoAlbumForm(@PathVariable Long userId, @PathVariable Long albumId, @ModelAttribute("UploadItem") UploadItem uploadItem) {
+	public String showNewPictureAddedToPhotoAlbumForm(@PathVariable Long userId, @PathVariable Long albumId, @ModelAttribute("UploadItem") UploadItem uploadItem, Model model) {
 		log.info("Displays new picture added to photo albums page");
 		if (uploadItem.getFileData().getName() != null && uploadItem.getFileData().getName().trim().length() > 0) {
 			PictureAlbum pictureAlbum = userService.loadPictureAlbumById(albumId);
@@ -55,7 +56,8 @@ public class PicController {
 
 			Picture picture = new Picture();
 			picture.setName(uploadItem.getFileData().getOriginalFilename());
-			picture.setContent(uploadItem.getFileData().getBytes());
+			byte[] encodedPicture = Base64.encodeBytesToBytes(uploadItem.getFileData().getBytes());
+			picture.setContent(encodedPicture);
 			picture.setCreateDateTime(new Date());
 			picture.setPictureAlbum(pictureAlbum);
 			pictureAlbum.getAlbumPictures().add(picture);
@@ -65,6 +67,8 @@ public class PicController {
 				log.info("PICTURE ALBUM NOT UPDATED!!!");
 			}
 		}
-		return "pictureAdded";
+		PictureAlbum pictureAlbum = userService.loadPictureAlbumById(albumId);
+		model.addAttribute("PictureAlbum", pictureAlbum);
+		return "editPhotoAlbum";
 	}
 }
