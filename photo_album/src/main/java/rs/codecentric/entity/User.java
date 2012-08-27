@@ -5,7 +5,9 @@ package rs.codecentric.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +16,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -49,8 +54,12 @@ public class User implements Serializable {
 	@Column(name = "user_lib", unique = true)
 	private String userLib;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<User> friends;
+	@ManyToMany(cascade={CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name="user_friend", joinColumns={@JoinColumn(name="user_id")}, inverseJoinColumns={@JoinColumn(name="friend_id")})
+    private Set<User> users = new HashSet<User>();
+ 
+    @ManyToMany(mappedBy="users", fetch = FetchType.EAGER)
+    private Set<User> friends = new HashSet<User>();
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<PictureAlbum> userAlbums;
@@ -96,14 +105,6 @@ public class User implements Serializable {
 		this.userEmail = userEmail;
 	}
 
-	public List<User> getFriends() {
-		return friends;
-	}
-
-	public void setFriends(List<User> friends) {
-		this.friends = friends;
-	}
-
 	public List<PictureAlbum> getUserAlbums() {
 		return userAlbums;
 	}
@@ -134,6 +135,22 @@ public class User implements Serializable {
 
 	public void setUpdateDateTime(Date updateDateTime) {
 		this.updateDateTime = updateDateTime;
+	}
+
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+
+	public Set<User> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(Set<User> friends) {
+		this.friends = friends;
 	}
 
 	@Override
