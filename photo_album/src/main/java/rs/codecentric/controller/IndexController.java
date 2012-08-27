@@ -21,17 +21,14 @@ public class IndexController {
 
 	@RequestMapping(value = "/index.htm", method = RequestMethod.GET)
 	public String onGet(ModelMap model) {
-		// User u = loginService.login(user.getUserName(),
-		// user.getUserPassword());
-		// String name = u.getUserName();
-		//
-		// model.addAttribute("userName", name);
 
-		User user = (User) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-		String name = user.getUsername();
+		User u = (User) SecurityContextHolder.getContext().getAuthentication()
+				.getPrincipal();
+		String userName = u.getUsername();
 
-		model.addAttribute("userName", name);
+		rs.codecentric.entity.User user = loginService
+				.getUserByUsername(userName);
+		model.addAttribute("user", user);
 
 		log.info("+++++++++++++++INDEX++++++++++++++++++");
 

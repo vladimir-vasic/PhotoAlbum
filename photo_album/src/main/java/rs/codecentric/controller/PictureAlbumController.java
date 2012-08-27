@@ -37,14 +37,14 @@ public class PictureAlbumController {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
-	@RequestMapping(value = "/allUserPhotoAlbums", method = RequestMethod.POST)
+	@RequestMapping(value = "/allUserPhotoAlbums.htm", method = RequestMethod.POST)
 	public String showAllUserPhotoAlbumsForm(@PathVariable Long userId, Model model) {
 		log.info("Displays all user photo albums page");
 		log.info("User photo albums displayed seccessfully.");
 		return "viewAllUserPhotoAlbums";
 	}
 
-	@RequestMapping(value = "/addUserPhotoAlbum", method = RequestMethod.GET)
+	@RequestMapping(value = "/addUserPhotoAlbum.htm", method = RequestMethod.GET)
 	public String showAddUserPhotoAlbumForm(Model model) {
 		log.info("Displays add user photo albums page");
 		PictureAlbum pictureAlbum = new PictureAlbum();
@@ -52,7 +52,7 @@ public class PictureAlbumController {
 		return "addPhotoAlbum";
 	}
 
-	@RequestMapping(value = "/addUserPhotoAlbum", method = RequestMethod.POST)
+	@RequestMapping(value = "/addUserPhotoAlbum.htm", method = RequestMethod.POST)
 	public String showUserPhotoAlbumAddedForm(@PathVariable Long userId, @ModelAttribute("PictureAlbum") PictureAlbum pictureAlbum) {
 		log.info("Displays user photo album added page");
 		User tmpUser = userService.loadUserById(userId);
@@ -64,7 +64,7 @@ public class PictureAlbumController {
 		return "userPhotoAlbumAdded";
 	}
 	
-	@RequestMapping(value = "/updateUserPhotoAlbum", method = RequestMethod.GET)
+	@RequestMapping(value = "/updateUserPhotoAlbum.htm", method = RequestMethod.GET)
 	public String showUpdateUserPhotoAlbumForm(@PathVariable Long userId, @RequestParam(value = "albumId", required = true) Long albumId, Model model) {
 		log.info("Displays update user photo albums page");
 		PictureAlbum pictureAlbum = userService.loadPictureAlbumById(albumId);
@@ -75,7 +75,7 @@ public class PictureAlbumController {
 		return "editPhotoAlbum";
 	}
 
-	@RequestMapping(value = "/deleteUserPhotoAlbum", method = RequestMethod.GET)
+	@RequestMapping(value = "/deleteUserPhotoAlbum.htm", method = RequestMethod.GET)
 	public String showDeleteUserPhotoAlbumForm(@PathVariable Long userId, @RequestParam(value = "albumId", required = true) Long albumId, Model model) {
 		log.info("Displays delete user photo albums page");
 		PictureAlbum pictureAlbum = userService.loadPictureAlbumById(albumId);
@@ -83,7 +83,7 @@ public class PictureAlbumController {
 		return "deletePhotoAlbum";
 	}
 
-	@RequestMapping(value = "/deleteUserPhotoAlbum", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteUserPhotoAlbum.htm", method = RequestMethod.POST)
 	public String showDeletedUserPhotoAlbumForm(@PathVariable Long userId, @ModelAttribute("PictureAlbum") PictureAlbum pictureAlbum) {
 		log.info("Displays delete user photo albums page");
 		User tmpUser = userService.loadUserById(userId);

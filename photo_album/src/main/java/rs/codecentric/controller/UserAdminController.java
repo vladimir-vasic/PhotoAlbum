@@ -32,7 +32,7 @@ public class UserAdminController {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@RequestMapping(value = "/userAdmin", method = RequestMethod.GET)
+	@RequestMapping(value = "/userAdmin.htm", method = RequestMethod.GET)
 	public String showUserAdminForm(ModelMap model) {
 		log.info("Displays user admin page");
 		log.info("Displays all users for editing in list box");
@@ -41,14 +41,14 @@ public class UserAdminController {
 		return "viewAllUsers";
 	}
 
-	@RequestMapping(value = "/newUser", method = RequestMethod.GET)
+	@RequestMapping(value = "/newUser.htm", method = RequestMethod.GET)
 	public String showNewUserSubscribeForm(ModelMap model) {
 		log.info("Displays new user submit page");
 		model.addAttribute("User", new User());
 		return "newUser";
 	}
 
-	@RequestMapping(value = "/newUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/newUser.htm", method = RequestMethod.POST)
 	public String createNewUser(@ModelAttribute("User") User user) {
 		log.info(MessageFormatter.arrayFormat("Trying to crete new user with params: userName - {} | userPassword - {} | userEmail - {}", new Object[] { user.getUserName(), user.getUserPassword(), user.getUserEmail() }).getMessage());
 		userService.createNewUser(user.getUserName(), user.getUserPassword(), user.getUserEmail());
@@ -56,7 +56,7 @@ public class UserAdminController {
 		return "userAdded";
 	}
 
-	@RequestMapping(value = "/viewAllUsers", method = RequestMethod.GET)
+	@RequestMapping(value = "/viewAllUsers.htm", method = RequestMethod.GET)
 	public String showAllUserForm(ModelMap model) {
 		log.info("Displays all users for editing in list box");
 		List<User> userList = userService.getAllUsers();
@@ -64,7 +64,7 @@ public class UserAdminController {
 		return "viewAllUsers";
 	}
 
-	@RequestMapping(value = "/editUser", method = RequestMethod.GET)
+	@RequestMapping(value = "/editUser.htm", method = RequestMethod.GET)
 	public String showEditUserForm(@RequestParam(value = "userId", required = true) Long userId, Model model) {
 		log.info("Displays user edit page");
 		User user = userService.loadUserById(userId);
@@ -72,7 +72,7 @@ public class UserAdminController {
 		return "editUser";
 	}
 
-	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateUser.htm", method = RequestMethod.POST)
 	public String showUpdatedUserForm(@RequestParam(value = "userId", required = true) Long userId, @ModelAttribute("User") User user) {
 		log.info("Displays updated user page");
 		userService.updateUser(user);
@@ -80,7 +80,7 @@ public class UserAdminController {
 		return "userUpdated";
 	}
 	
-	@RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
+	@RequestMapping(value = "/deleteUser.htm", method = RequestMethod.GET)
 	public String showDeleteUserForm(@RequestParam(value = "userId", required = true) Long userId, Model model) {
 		log.info("Displays user delete page");
 		User user = userService.loadUserById(userId);
@@ -88,7 +88,7 @@ public class UserAdminController {
 		return "deleteUser";
 	}
 
-	@RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteUser.htm", method = RequestMethod.POST)
 	public String showDeletedUserForm(@RequestParam(value = "userId", required = true) Long userId, @ModelAttribute("User") User user) {
 		log.info("Displays deleted user page");
 		userService.deleteUser(user);

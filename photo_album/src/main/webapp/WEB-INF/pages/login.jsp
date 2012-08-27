@@ -34,7 +34,7 @@
 				</tr>
 				<tr>
 					<td><input type='checkbox' name='_spring_security_remember_me'
-						class="checkbox" /> Remember me.</td>
+						class="checkbox" value="true" checked="checked"/> Remember me.</td>
 				</tr>
 				<tr>
 					<td><input type="submit" value="Submit"></td>
