@@ -95,7 +95,7 @@ public class UserAdminController {
 		log.info("User deleted seccessfully.");
 		return "userDeleted";
 	}
-
+	
 	// @RequestMapping(value="/user", method = RequestMethod.POST)
 	// public Response createNewUserJson(
 	// @RequestParam(value="userName", required=true) String userName,

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -168,6 +169,16 @@ public class UserAdminDAO implements IUserAdminDAO {
 		} catch (HibernateException exc) {
 			log.error("ERROR WHILE DELETING PICTURE ALBUM", exc);
 		}
+		return retVal;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<User> getPosibleFriends(Long userId) {
+		List<User> retVal = null;
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM User u WHERE NOT u.userId = :userId AND NOT u IN u.friends";// + condition1;
+		Query select = session.createQuery(hql).setParameter("userId", userId);
+		retVal = select.list();
 		return retVal;
 	}
 }

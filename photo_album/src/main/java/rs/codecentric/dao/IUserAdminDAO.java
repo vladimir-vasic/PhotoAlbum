@@ -30,4 +30,6 @@ public interface IUserAdminDAO {
 	public Boolean updatePictureAlbum(PictureAlbum pictureAlbum);
 	
 	public Boolean deletePictureAlbumById(PictureAlbum pictureAlbum);
+	
+	public List<User> getPosibleFriends(Long userId);
 }

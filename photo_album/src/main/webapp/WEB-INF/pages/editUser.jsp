@@ -14,6 +14,7 @@
 
 	<c:url var="updateUserUrl" value="/rest/updateUser?userId=${User.userId}" />
 	<c:url var="alluserphotoalbums" value="/rest/${User.userId}/allUserPhotoAlbums" />
+	<c:url var="addFriendUrl" value="/rest/${User.userId}/addFriend" />
 	<form:form modelAttribute="User" method="POST" action="${updateUserUrl}">
 		<table>
 			<tr>
@@ -34,6 +35,7 @@
 
 		<input type="submit" value="Update" onClick="this.form.action = '${updateUserUrl}';"/>
 		<input type="submit" value="View Photo Albums" onClick="this.form.action = '${alluserphotoalbums}';"/>
+		<input type="submit" value="Add Friend" onClick="this.form.action = '${addFriendUrl}';"/>
 	</form:form>
 
 </body>
