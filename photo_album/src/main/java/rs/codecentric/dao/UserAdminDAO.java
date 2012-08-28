@@ -176,7 +176,7 @@ public class UserAdminDAO implements IUserAdminDAO {
 	public List<User> getPosibleFriends(Long userId) {
 		List<User> retVal = null;
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "FROM User u WHERE NOT u.userId = :userId AND NOT u IN u.friends";// + condition1;
+		String hql = "FROM User u WHERE NOT u.userId = :userId";// + condition1;
 		Query select = session.createQuery(hql).setParameter("userId", userId);
 		retVal = select.list();
 		return retVal;

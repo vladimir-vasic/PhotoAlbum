@@ -9,6 +9,6 @@ import rs.codecentric.entity.User;
  */
 public interface ILoginDAO {
 
-	public User login(String username, String password);
+	public User getUserByUsername(String userName);
 
 }

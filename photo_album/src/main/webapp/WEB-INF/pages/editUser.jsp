@@ -12,9 +12,9 @@
 
 	<h1>Update User</h1>
 
-	<c:url var="updateUserUrl" value="/rest/updateUser?userId=${User.userId}" />
-	<c:url var="alluserphotoalbums" value="/rest/${User.userId}/allUserPhotoAlbums" />
-	<c:url var="addFriendUrl" value="/rest/${User.userId}/addFriend" />
+	<c:url var="updateUserUrl" value="/rest/updateUser.htm?userId=${User.userId}" />
+	<c:url var="alluserphotoalbums" value="/rest/${User.userId}/allUserPhotoAlbums.htm" />
+	<c:url var="addFriendUrl" value="/rest/${User.userId}/addFriend.htm" />
 	<form:form modelAttribute="User" method="POST" action="${updateUserUrl}">
 		<table>
 			<tr>

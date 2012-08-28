@@ -7,19 +7,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Photo Album</title>
+
 </head>
 <body>
-
-	<h1>User Administration</h1>
-
-	<c:url var="addUserUrl" value="/rest/newUser.htm" />
-	<c:url var="editUserUrl" value="/rest/editUser.htm?userId=${userId}" />
-	<c:url var="deleteUserUrl" value="/rest/deleteUser.htm?userId=${userId}" />
-	<form:form modelAttribute="userList" method="GET" action="${editUserUrl}">
+	<h1>Add Friend</h1>
+	<c:url var="friendAddedUrl" value="friendAdded.htm?userId=${selUserId}" />
+	<form:form modelAttribute="userList" method="POST" action="${friendAddedUrl}">
 		<table>
 			<tr>
 				<td>
-					<select name="userId" size="2">
+					<select name="selUserId" size="2">
 						<c:forEach items="${userList}" var="User">
 							<option value="${User.userId}">${User.userName}</option>
 						</c:forEach>
@@ -27,10 +24,7 @@
 				</td>
 			</tr>
 		</table>
-		<input type="submit" value="Add New" onClick="this.form.action = '${addUserUrl}';"/>
-		<input type="submit" value="Edit" onClick="this.form.action = '${editUserUrl}';"/>
-		<input type="submit" value="Delete" onClick="this.form.action = '${deleteUserUrl}';"/>
+		<input type="submit" value="Add Friend" onClick="this.form.action = '${friendAddedUrl}';"/>
 	</form:form>
-
 </body>
 </html>

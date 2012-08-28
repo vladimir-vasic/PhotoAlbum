@@ -17,7 +17,7 @@
 </head>
 <body>
 	<h1>Add New Photo Album</h1>
-	<c:url var="userPhotoAlbumAdded" value="addUserPhotoAlbum" />
+	<c:url var="userPhotoAlbumAdded" value="addUserPhotoAlbum.htm" />
 	<form:form modelAttribute="PictureAlbum" method="POST" action="${addUserPhotoAlbumUrl}">
 		<table>
 			<tr>

@@ -10,7 +10,7 @@
 </head>
 <body>
 	<h1>Add New Picture to Album</h1>
-	<c:url var="pictureAddToAlbum" value="addPictureToPhotoAlbum" />
+	<c:url var="pictureAddToAlbum" value="addPictureToPhotoAlbum.htm" />
 	<form:form modelAttribute="UploadItem" method="post" enctype="multipart/form-data">
             <fieldset>
                 <legend>Upload Fields</legend>

@@ -1,8 +1,7 @@
 package rs.codecentric.dao;
 
-import java.util.List;
-
 import javax.annotation.Resource;
+import javax.persistence.NoResultException;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,20 +22,17 @@ public class LoginDAO implements ILoginDAO {
 	@Resource(name = "sessionFactory")
 	private SessionFactory sessionFactory;
 
-	@SuppressWarnings("unchecked")
-	public User login(String username, String password) {
-		User retVal = null;
-		Session session = sessionFactory.getCurrentSession();
-
-		String hql = "FROM User WHERE userName = :userName AND userPassword = :userPassword";
-		List<User> userList = session.createQuery(hql)
-				.setParameter("userName", username)
-				.setParameter("userPassword", password).list();
-
-		if (userList != null && !userList.isEmpty()) {
-			retVal = userList.get(0);
+	public User getUserByUsername(String userName) {
+		User user = null;
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			String hql = "FROM User WHERE userName = :userName";
+			user = (User) session.createQuery(hql)
+					.setParameter("userName", userName).list().get(0);
+			return user;
+		} catch (NoResultException e) {
+			return user;
 		}
-		return retVal;
 	}
 
 }

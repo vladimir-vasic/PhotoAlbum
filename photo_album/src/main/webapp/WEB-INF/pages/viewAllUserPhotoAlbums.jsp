@@ -20,9 +20,9 @@
 
 	<h1>User Photo Albums</h1>
 
-	<c:url var="addUserPhotoAlbumUrl" value="/rest/${userId}/addUserPhotoAlbum" />
-	<c:url var="updateUserPhotoAlbumUrl" value="/rest/${userId}/updateUserPhotoAlbum/?albumId=${albumId}" />
-	<c:url var="deleteUserPhotoAlbumUrl" value="/rest/${userId}/deleteUserPhotoAlbum/?albumId=${albumId}" />
+	<c:url var="addUserPhotoAlbumUrl" value="/rest/${userId}/addUserPhotoAlbum.htm" />
+	<c:url var="updateUserPhotoAlbumUrl" value="/rest/${userId}/updateUserPhotoAlbum.htm?albumId=${albumId}" />
+	<c:url var="deleteUserPhotoAlbumUrl" value="/rest/${userId}/deleteUserPhotoAlbum.htm?albumId=${albumId}" />
 	<form:form modelAttribute="User" method="GET" action="${addUserPhotoAlbumUrl}">
 		<table>
 			<tr>

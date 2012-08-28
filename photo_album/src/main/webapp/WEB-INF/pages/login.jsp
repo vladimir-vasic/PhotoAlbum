@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,22 +12,29 @@
 <title>Photo Album</title>
 </head>
 <body>
-	<c:url var="login" value="/login" />
-	<form:form modelAttribute="User" method="POST" action="${login}">
+	<c:if test="${not empty param.login_error}">
+		<font color="red"> Your login attempt was not successful, try
+			again.<br /> <br /> Reason: <c:out
+				value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />.
+		</font>
+	</c:if>
+	<form action="<c:url value='/j_spring_security_check'/>" method="post">
 		<p>Login</p>
-		<br />
-		<br />
+		<br /> <br />
 		<fieldset>
 			<table align="center">
 
 				<tr>
-					<td align="left"><label for="userName">Username:</label></td>
-					<td><input type="text" name="userName" id="userName" /></td>
+					<td align="left"><label for="j_username">Username:</label></td>
+					<td><input type="text" name="j_username" id="j_username" /></td>
 				</tr>
 				<tr>
-					<td align="left"><label for="userPassword">Password:</label></td>
-					<td><input type="password" name="userPassword"
-						id="userPassword" /></td>
+					<td align="left"><label for="j_password">Password:</label></td>
+					<td><input type="password" name="j_password" id="j_password" /></td>
+				</tr>
+				<tr>
+					<td><input type='checkbox' name='_spring_security_remember_me'
+						class="checkbox" value="true" checked="checked"/> Remember me.</td>
 				</tr>
 				<tr>
 					<td><input type="submit" value="Submit"></td>
@@ -33,6 +42,6 @@
 				</tr>
 			</table>
 		</fieldset>
-	</form:form>
+	</form>
 </body>
 </html>

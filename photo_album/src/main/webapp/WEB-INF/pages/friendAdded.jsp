@@ -12,7 +12,7 @@
 
 <h1>Users</h1>
 
-<p>You have updated user at <%= new java.util.Date() %></p>
+<p>You have added a friend at <%= new java.util.Date() %></p>
 
 <c:url var="mainUrl" value="/rest/userAdmin.htm" />
 <p>Return to <a href="${mainUrl}">user admin page.</a></p>
