@@ -12,8 +12,7 @@
 
 	<h1>Create New User</h1>
 
-	<c:url var="saveUrl" value="/rest/newUser" />
-	<form:form modelAttribute="User" method="POST" action="${saveUrl}">
+	<form:form modelAttribute="User" method="POST">
 		<table>
 			<tr>
 				<td align="left">User Name:</td>

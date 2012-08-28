@@ -23,7 +23,6 @@ import rs.codecentric.entity.PictureAlbum;
 import rs.codecentric.entity.User;
 
 @Controller
-@RequestMapping("/rest")
 @SessionAttributes("User")
 public class UserAdminController {
 
@@ -53,7 +52,7 @@ public class UserAdminController {
 		log.info(MessageFormatter.arrayFormat("Trying to crete new user with params: userName - {} | userPassword - {} | userEmail - {}", new Object[] { user.getUserName(), user.getUserPassword(), user.getUserEmail() }).getMessage());
 		userService.createNewUser(user.getUserName(), user.getUserPassword(), user.getUserEmail());
 		log.info("New user created seccessfully.");
-		return "userAdded";
+		return "redirect:redirect.htm?msg=userAdded";
 	}
 
 	@RequestMapping(value = "/viewAllUsers.htm", method = RequestMethod.GET)
