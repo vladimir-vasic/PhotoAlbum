@@ -26,6 +26,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 /**
  * @author vladimir.vasic@codecentric.de
  * 
@@ -54,11 +57,13 @@ public class User implements Serializable {
 	@Column(name = "user_lib", unique = true)
 	private String userLib;
 	
-	@ManyToMany(cascade={CascadeType.ALL}, fetch = FetchType.EAGER)
+	@ManyToMany(cascade={CascadeType.ALL})
+	@LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name="user_friend", joinColumns={@JoinColumn(name="user_id")}, inverseJoinColumns={@JoinColumn(name="friend_id")})
     private Set<User> users = new HashSet<User>();
  
-    @ManyToMany(mappedBy="users", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy="users")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Set<User> friends = new HashSet<User>();
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

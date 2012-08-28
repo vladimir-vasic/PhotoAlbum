@@ -11,7 +11,7 @@
 </head>
 <body>
 	<h1>Add Friend</h1>
-	<c:url var="friendAddedUrl" value="friendAdded?userId=${selUserId}" />
+	<c:url var="friendAddedUrl" value="friendAdded.htm?userId=${selUserId}" />
 	<form:form modelAttribute="userList" method="POST" action="${friendAddedUrl}">
 		<table>
 			<tr>

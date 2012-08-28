@@ -10,7 +10,7 @@
 <title>Photo Album</title>
 </head>
 <body>
-	<c:url var="editUserUrl" value="/rest/editUser?userId=${User.userId}" />
+	<c:url var="editUserUrl" value="/rest/editUser.htm?userId=${User.userId}" />
 	<form:form modelAttribute="User" method="GET">
 		<h1>Users</h1>
 		<p>You are logged as : ${User.userName} , ${User.userPassword} ,

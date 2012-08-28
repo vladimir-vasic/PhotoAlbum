@@ -14,7 +14,7 @@
 
 <p>You have updated user at <%= new java.util.Date() %></p>
 
-<c:url var="mainUrl" value="/rest/userAdmin" />
+<c:url var="mainUrl" value="/rest/userAdmin.htm" />
 <p>Return to <a href="${mainUrl}">user admin page.</a></p>
 
 </body>

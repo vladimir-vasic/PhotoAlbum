@@ -5,6 +5,7 @@ package rs.codecentric.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.jboss.resteasy.util.Base64;
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ import rs.codecentric.dao.IUserAdminDAO;
 import rs.codecentric.dto.UploadItem;
 import rs.codecentric.entity.Picture;
 import rs.codecentric.entity.PictureAlbum;
+import rs.codecentric.entity.User;
 
 /**
  * @author vladimir.vasic@codecentric.de
@@ -50,7 +52,7 @@ public class PicController {
 		log.info("Displays new picture added to photo albums page");
 		if (uploadItem.getFileData().getName() != null && uploadItem.getFileData().getName().trim().length() > 0) {
 			PictureAlbum pictureAlbum = userService.loadPictureAlbumById(albumId);
-			if(pictureAlbum.getAlbumPictures() == null || pictureAlbum.getAlbumPictures().isEmpty()) {
+			if (pictureAlbum.getAlbumPictures() == null || pictureAlbum.getAlbumPictures().isEmpty()) {
 				pictureAlbum.setAlbumPictures(new ArrayList<Picture>());
 			}
 
@@ -71,4 +73,26 @@ public class PicController {
 		model.addAttribute("PictureAlbum", pictureAlbum);
 		return "editPhotoAlbum";
 	}
+
+	@RequestMapping(value = "/getFriendsPictures", method = RequestMethod.GET)
+	public byte[] getFriendsPictures(@PathVariable Long userId) {
+		byte[] retVal = null;
+		User user = userService.loadUserById(userId);
+		Iterator<User> it = user.getFriends().iterator();
+		while (it.hasNext()) {
+			User value = (User) it.next();
+			if (value.getUserAlbums() != null && !value.getUserAlbums().isEmpty()) {
+				for (PictureAlbum picAl : value.getUserAlbums()) {
+					if (picAl.getAlbumPictures() != null && !picAl.getAlbumPictures().isEmpty()) {
+						for (Picture pic : picAl.getAlbumPictures()) {
+							retVal = pic.getContent();
+							log.info("*** IMA SLIKA: {}", picAl.getAlbumPictures().size());
+						}
+					}
+				}
+			}
+		}
+		return retVal;
+	}
+
 }

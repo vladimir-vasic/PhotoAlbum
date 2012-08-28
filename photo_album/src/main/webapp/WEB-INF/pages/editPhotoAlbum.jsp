@@ -9,8 +9,8 @@
 </head>
 <body>
 	<h1>Update Photo Album</h1>
-	<c:url var="addPictureToPhotoAlbumUrl" value="/rest/${User.userId}/updatePhotoAlbum/${PictureAlbum.albumId}/addPictureToPhotoAlbum" />
-	<c:url var="userAdminUrl" value="/rest/userAdmin" />
+	<c:url var="addPictureToPhotoAlbumUrl" value="/rest/${User.userId}/updatePhotoAlbum/${PictureAlbum.albumId}/addPictureToPhotoAlbum.htm" />
+	<c:url var="userAdminUrl" value="/rest/userAdmin.htm" />
 	<form:form modelAttribute="PictureAlbum" method="GET" action="${updateUserUrl}">
 		<table>
 			<tr>
@@ -33,14 +33,20 @@
 					</c:forEach>
 				</td>
 			</tr>
-<!-- 			<tr> -->
-<!-- 				<td> -->
-<!-- 					<img src="http://student.eepis-its.edu/~putrizesi/Tugas%20UAS/robot.png" width=50 height=50 alt=robot/> -->
-<!-- 				</td> -->
-<!-- 			</tr> -->
 		</table>
 		<input type="submit" value="Add Picture To Photo Album" onClick="this.form.action = '${addPictureToPhotoAlbumUrl}';" />
 		<input type="submit" value="Back To Admin" onClick="this.form.action = '${userAdminUrl}';" />
+		<table>
+			<tr>
+				<td>Friends Pictures</td>
+			</tr>
+			<tr>
+				<td>
+					<img src="http://student.eepis-its.edu/~putrizesi/Tugas%20UAS/robot.png" width=50 height=50 alt=robot/>
+					<img src="data:image/jpg/png;base64, /rest/1/updatePhotoAlbum/1/getFriendsPictures.htm" width=50 height=50 alt='neka_slika'/>
+				</td>
+			</tr>
+		</table>
 	</form:form>
 </body>
 </html>
