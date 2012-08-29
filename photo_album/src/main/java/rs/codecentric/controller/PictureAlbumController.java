@@ -30,7 +30,7 @@ import rs.codecentric.entity.User;
  * 
  */
 @Controller
-@RequestMapping("/rest/{userId}")
+@RequestMapping("/{userId}")
 @SessionAttributes("PictureAlbum")
 public class PictureAlbumController {
 
@@ -41,6 +41,13 @@ public class PictureAlbumController {
 	
 	@RequestMapping(value = "/allUserPhotoAlbums.htm", method = RequestMethod.POST)
 	public String showAllUserPhotoAlbumsForm(@PathVariable Long userId, Model model) {
+		log.info("Displays all user photo albums page");
+		log.info("User photo albums displayed seccessfully.");
+		return "viewAllUserPhotoAlbums";
+	}
+	
+	@RequestMapping(value = "/allUserPhotoAlbums.htm", method = RequestMethod.GET)
+	public String showAllUserPhotoAlbumsFormFromEditPhotoAlbum(@PathVariable Long userId, Model model) {
 		log.info("Displays all user photo albums page");
 		log.info("User photo albums displayed seccessfully.");
 		return "viewAllUserPhotoAlbums";

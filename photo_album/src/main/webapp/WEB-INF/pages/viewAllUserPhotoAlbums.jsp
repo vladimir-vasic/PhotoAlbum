@@ -20,9 +20,10 @@
 
 	<h1>User Photo Albums</h1>
 
-	<c:url var="addUserPhotoAlbumUrl" value="/rest/${userId}/addUserPhotoAlbum.htm" />
-	<c:url var="updateUserPhotoAlbumUrl" value="/rest/${userId}/updateUserPhotoAlbum.htm?albumId=${albumId}" />
-	<c:url var="deleteUserPhotoAlbumUrl" value="/rest/${userId}/deleteUserPhotoAlbum.htm?albumId=${albumId}" />
+	<c:url var="addUserPhotoAlbumUrl" value="/${userId}/addUserPhotoAlbum.htm" />
+	<c:url var="updateUserPhotoAlbumUrl" value="/${userId}/updateUserPhotoAlbum.htm?albumId=${albumId}" />
+	<c:url var="deleteUserPhotoAlbumUrl" value="/${userId}/deleteUserPhotoAlbum.htm?albumId=${albumId}" />
+	<c:url var="editUserUrl" value="/editMyUser.htm" />
 	<form:form modelAttribute="User" method="GET" action="${addUserPhotoAlbumUrl}">
 		<table>
 			<tr>
@@ -38,6 +39,7 @@
 		<input type="submit" value="Add New Photo Album" onClick="this.form.action = '${addUserPhotoAlbumUrl}';"/>
 		<input type="submit" value="Edit Photo Album" onClick="this.form.action = '${updateUserPhotoAlbumUrl}';"/>
 		<input type="submit" value="Delete Photo Album" onClick="this.form.action = '${deleteUserPhotoAlbumUrl}';"/>
+		<input type="submit" value="Back To User Edit Page" onClick="this.form.action = '${editUserUrl}';"/>
 	</form:form>
 </body>
 </html>

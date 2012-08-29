@@ -26,7 +26,7 @@ import rs.codecentric.entity.User;
  *
  */
 @Controller
-@RequestMapping("/rest/{userId}")
+@RequestMapping("/{userId}")
 @SessionAttributes("User")
 public class UserFriendController {
 

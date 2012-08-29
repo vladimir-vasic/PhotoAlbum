@@ -37,9 +37,9 @@
 <body>
 	<div id="Layer1" style="display: none; position: absolute; z-index: 1;"></div>
 	<h1>Update Photo Album</h1>
-	<c:url var="addPictureToPhotoAlbumUrl" value="/rest/${User.userId}/updatePhotoAlbum/${UserPictures4Display.userPictureAlbum.albumId}/addPictureToPhotoAlbum.htm" />
-	<c:url var="userAdminUrl" value="/rest/userAdmin.htm" />
-	<form:form modelAttribute="UserPictures4Display" method="GET" action="${updateUserUrl}">
+	<c:url var="addPictureToPhotoAlbumUrl" value="/${User.userId}/updatePhotoAlbum/${UserPictures4Display.userPictureAlbum.albumId}/addPictureToPhotoAlbum.htm" />
+	<c:url var="allUserPhotoAlbumsUrl" value="/${User.userId}/allUserPhotoAlbums.htm" />
+	<form:form modelAttribute="UserPictures4Display" method="GET" action="${allUserPhotoAlbumsUrl}">
 		<table>
 			<tr>
 				<td align="left">Photo Album Name:</td>
@@ -59,7 +59,7 @@
 			</tr>
 		</table>
 		<input type="submit" value="Add Picture To Photo Album" onClick="this.form.action = '${addPictureToPhotoAlbumUrl}';" />
-		<input type="submit" value="Back To Admin" onClick="this.form.action = '${userAdminUrl}';" />
+		<input type="submit" value="Back To Photo Albums" onClick="this.form.action = '${allUserPhotoAlbumsUrl}';" />
 		<table>
 			<tr>
 				<td>Friends Pictures</td>

@@ -70,6 +70,12 @@ public class UserAdminController {
 		model.addAttribute("User", user);
 		return "editUser";
 	}
+	
+	@RequestMapping(value = "/editMyUser.htm", method = RequestMethod.GET)
+	public String editMyUser() {
+		log.info("Displays user edit page");
+		return "editUser";
+	}
 
 	@RequestMapping(value = "/updateUser.htm", method = RequestMethod.POST)
 	public String showUpdatedUserForm(@RequestParam(value = "userId", required = true) Long userId, @ModelAttribute("User") User user) {

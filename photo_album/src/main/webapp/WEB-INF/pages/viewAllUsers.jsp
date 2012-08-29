@@ -12,9 +12,9 @@
 
 	<h1>User Administration</h1>
 
-	<c:url var="addUserUrl" value="/rest/newUser.htm" />
-	<c:url var="editUserUrl" value="/rest/editUser.htm?userId=${userId}" />
-	<c:url var="deleteUserUrl" value="/rest/deleteUser.htm?userId=${userId}" />
+	<c:url var="addUserUrl" value="/newUser.htm" />
+	<c:url var="editUserUrl" value="/editUser.htm?userId=${userId}" />
+	<c:url var="deleteUserUrl" value="/deleteUser.htm?userId=${userId}" />
 	<form:form modelAttribute="userList" method="GET" action="${editUserUrl}">
 		<table>
 			<tr>

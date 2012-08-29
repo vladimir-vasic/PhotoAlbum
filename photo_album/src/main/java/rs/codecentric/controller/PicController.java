@@ -31,7 +31,7 @@ import rs.codecentric.entity.User;
  * 
  */
 @Controller
-@RequestMapping("/rest/{userId}/updatePhotoAlbum/{albumId}")
+@RequestMapping("/{userId}/updatePhotoAlbum/{albumId}")
 @SessionAttributes("UploadItem")
 public class PicController {
 

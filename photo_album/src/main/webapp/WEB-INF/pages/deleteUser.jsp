@@ -20,7 +20,7 @@
 
 	<h1>Delete User</h1>
 
-	<c:url var="deleteUserUrl" value="/rest/deleteUser.htm?userId=${User.userId}" />
+	<c:url var="deleteUserUrl" value="/deleteUser.htm?userId=${User.userId}" />
 	<form:form modelAttribute="User" method="POST" action="${deleteUserUrl}">
 		<table>
 			<tr>
