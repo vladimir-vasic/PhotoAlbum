@@ -12,11 +12,10 @@
 		<%@ include file="/WEB-INF/include/sidebar.jsp"%>
 		<div class="content">
 
-			<form:form modelAttribute="userList" method="POST">
-				<p class="title">> > > Add Friend < < <</p>
-				<br />
-				<br />
-				<fieldset>
+			<p class="title">> > > Add Friend < < <</p>
+			<br /> <br />
+			<fieldset>
+				<form:form modelAttribute="User">
 					<table align="center" border="1">
 						<tr align="left">
 							<th>Username</th>
@@ -26,13 +25,13 @@
 							<tr align="left">
 								<td width="200">${UserFriend.userName}</td>
 								<td width="70"><a
-									href="<c:url value="friendAdded.htm?userId=${User.userId}&selUserId=${UserFriend.userId}"/>">Add
+									href="<c:url value="addFriend.htm?selUserId=${UserFriend.userId}"/>">Add
 										friend</a></td>
 							</tr>
 						</c:forEach>
 					</table>
-				</fieldset>
-			</form:form>
+				</form:form>
+			</fieldset>
 
 		</div>
 		<%@ include file="/WEB-INF/include/footer.jsp"%>

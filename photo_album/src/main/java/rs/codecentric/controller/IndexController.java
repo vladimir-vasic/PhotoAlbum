@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import rs.codecentric.dao.ILoginDAO;
+import rs.codecentric.entity.User;
 
 @Controller
 @SessionAttributes("User")
@@ -24,13 +24,12 @@ public class IndexController {
 	@RequestMapping(value = "/index.htm", method = RequestMethod.GET)
 	public String onGet(ModelMap model) {
 
-		User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String userName = u.getUsername();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 
-		rs.codecentric.entity.User user = loginService.getUserByUsername(userName);
+		User user = loginService.getUserByUsername(userName);
 		model.addAttribute("User", user);
 
-		log.info("+++++++++++++++INDEX++++++++++++++++++");
+		log.info("+++++++++++++++INDEX++++++++++++++++++ " + user.getUserId() + ", " + user.getUserName());
 
 		return "index";
 	}

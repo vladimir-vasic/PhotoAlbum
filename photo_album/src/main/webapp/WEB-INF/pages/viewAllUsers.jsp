@@ -15,22 +15,24 @@
 			<p class="title">> > > User Administration < < <</p>
 			<br /> <br />
 			<fieldset>
-				<table align="center" border="1">
-					<tr align="left">
-						<th>Username</th>
-						<th>Edit</th>
-						<th>Delete</th>
-					</tr>
-					<c:forEach var="User" items="${userList}">
+				<form:form modelAttribute="userList" method="GET">
+					<table align="center" border="1">
 						<tr align="left">
-							<td width="200">${User.userName}</td>
-							<td width="70"><a
-								href="<c:url value="editUser.htm?userId=${User.userId}"/>">Edit</a></td>
-							<td width="70"><a
-								href="<c:url value="deleteUser.htm?userId=${User.userId}"/>">Delete</a></td>
+							<th>Username</th>
+							<th>Edit</th>
+							<th>Delete</th>
 						</tr>
-					</c:forEach>
-				</table>
+						<c:forEach var="User" items="${userList}">
+							<tr align="left">
+								<td width="200">${User.userName}</td>
+								<td width="70"><a
+									href="<c:url value="editUser.htm?userId=${User.userId}"/>">Edit</a></td>
+								<td width="70"><a
+									href="<c:url value="deleteUser.htm?userId=${User.userId}"/>">Delete</a></td>
+							</tr>
+						</c:forEach>
+					</table>
+				</form:form>
 			</fieldset>
 
 		</div>

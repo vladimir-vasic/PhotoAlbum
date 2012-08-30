@@ -17,21 +17,20 @@
 		<%@ include file="/WEB-INF/include/header.jsp"%>
 		<%@ include file="/WEB-INF/include/sidebar.jsp"%>
 		<div class="content">
+			<p class="title">> > > Delete Photo Album < < <</p>
+			<br /> <br />
+			<form:form modelAttribute="PictureAlbum" method="POST">
+				<fieldset>
+					<table align="center" border="0">
+						<tr>
+							<td align="left">Album Name:</td>
+							<td><form:input id="albumName" path="albumName" /></td>
+						</tr>
+						<td align="center" colspan="2"><br /> <input type="submit"
+							value="Delete" /></td>
+					</table>
 
-
-			<h1>Delete User</h1>
-
-			<c:url var="deletePhotoAlbumUrl" value="" />
-			<form:form modelAttribute="PictureAlbum" method="POST"
-				action="${deletePhotoAlbumUrl}">
-				<table>
-					<tr>
-						<td align="left">Album Name:</td>
-						<td><form:input id="albumName" path="albumName" /></td>
-					</tr>
-				</table>
-
-				<input type="submit" value="Delete" />
+				</fieldset>
 			</form:form>
 
 		</div>

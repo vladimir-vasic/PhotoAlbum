@@ -19,31 +19,32 @@
 		<%@ include file="/WEB-INF/include/header.jsp"%>
 		<%@ include file="/WEB-INF/include/sidebar.jsp"%>
 		<div class="content">
+			<form:form modelAttribute="User" method="POST">
+				<p class="title">> > > Delete User < < <</p>
+				<br />
+				<br />
+				<fieldset>
+					<table align="center" border="0">
+						<tr>
+							<td align="left">User Name:</td>
+							<td><form:input id="userName" path="userName" /></td>
+						</tr>
 
-			<h1>Delete User</h1>
+						<tr>
+							<td align="left">User Password:</td>
+							<td><form:input id="userPassword" path="userPassword" /></td>
+						</tr>
 
-			<c:url var="deleteUserUrl"
-				value="deleteUser.htm?userId=${User.userId}" />
-			<form:form modelAttribute="User" method="POST"
-				action="${deleteUserUrl}">
-				<table>
-					<tr>
-						<td align="left">User Name:</td>
-						<td><form:input id="userName" path="userName" /></td>
-					</tr>
-
-					<tr>
-						<td align="left">User Password:</td>
-						<td><form:input id="userPassword" path="userPassword" /></td>
-					</tr>
-
-					<tr>
-						<td align="left">User Email:</td>
-						<td><form:input id="userEmail" path="userEmail" /></td>
-					</tr>
-				</table>
-
-				<input type="submit" value="Delete" />
+						<tr>
+							<td align="left">User Email:</td>
+							<td><form:input id="userEmail" path="userEmail" /></td>
+						</tr>
+						<tr>
+							<td align="center" colspan="2"><br /> <input type="submit"
+								value="Delete" /></td>
+						</tr>
+					</table>
+				</fieldset>
 			</form:form>
 		</div>
 		<%@ include file="/WEB-INF/include/footer.jsp"%>

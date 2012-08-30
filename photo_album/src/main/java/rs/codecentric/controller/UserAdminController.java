@@ -9,17 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
 import rs.codecentric.dao.IUserAdminDAO;
-import rs.codecentric.entity.PictureAlbum;
 import rs.codecentric.entity.User;
 
 @Controller
@@ -71,11 +67,13 @@ public class UserAdminController {
 		model.addAttribute("User", user);
 		return "editUser";
 	}
+
 	@RequestMapping(value = "/editMyUser.htm", method = RequestMethod.GET)
 	public String editMyUser() {
 		log.info("Displays user edit page");
 		return "editUser";
 	}
+
 	@RequestMapping(value = "/editUser.htm", method = RequestMethod.POST)
 	public String showUpdatedUserForm(@RequestParam(value = "userId", required = true) Long userId, @ModelAttribute("User") User user) {
 		log.info("Displays updated user page");
@@ -93,7 +91,7 @@ public class UserAdminController {
 	}
 
 	@RequestMapping(value = "/deleteUser.htm", method = RequestMethod.POST)
-	public String showDeletedUserForm(@RequestParam(value = "userId", required = true) Long userId, @ModelAttribute("User") User user) {
+	public String showDeletedUserForm(@ModelAttribute("User") User user) {
 		log.info("Displays deleted user page");
 		userService.deleteUser(user);
 		log.info("User deleted seccessfully.");

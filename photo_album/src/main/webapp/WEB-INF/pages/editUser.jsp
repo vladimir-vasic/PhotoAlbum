@@ -11,13 +11,10 @@
 		<%@ include file="/WEB-INF/include/header.jsp"%>
 		<%@ include file="/WEB-INF/include/sidebar.jsp"%>
 		<div class="content">
-
 			<p class="title">> > > Update User < < <</p>
 			<br /> <br />
 			<fieldset>
-
 				<form:form modelAttribute="User" method="POST">
-
 					<table border="0" align="center">
 						<tr>
 							<td align="left">User Name:</td>
@@ -40,11 +37,8 @@
 								type="reset" value="Cancel" /></td>
 						</tr>
 					</table>
-
 				</form:form>
-
 			</fieldset>
-
 		</div>
 		<%@ include file="/WEB-INF/include/footer.jsp"%>
 	</div>

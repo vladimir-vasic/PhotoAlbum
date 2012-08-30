@@ -57,15 +57,6 @@ public class User implements Serializable {
 	@Column(name = "user_lib", unique = true)
 	private String userLib;
 	
-	@ManyToMany(cascade={CascadeType.ALL})
-	@LazyCollection(LazyCollectionOption.FALSE)
-    @JoinTable(name="user_friend", joinColumns={@JoinColumn(name="user_id")}, inverseJoinColumns={@JoinColumn(name="friend_id")})
-    private Set<User> users = new HashSet<User>();
- 
-    @ManyToMany(mappedBy="users")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Set<User> friends = new HashSet<User>();
-
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<PictureAlbum> userAlbums;
 
@@ -76,7 +67,15 @@ public class User implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_datetime")
 	private Date updateDateTime;
-	
+
+	@ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="user_friend", joinColumns={@JoinColumn(name="user_id")}, inverseJoinColumns={@JoinColumn(name="friend_id")})
+	@LazyCollection(LazyCollectionOption.FALSE)
+    private Set<User> friends = new HashSet<User>();
+ 
+    @ManyToMany(mappedBy="friends")
+    private Set<User> teammates = new HashSet<User>();
+    
 	// getters setters
 	public Long getUserId() {
 		return userId;
@@ -142,20 +141,20 @@ public class User implements Serializable {
 		this.updateDateTime = updateDateTime;
 	}
 
-	public Set<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
-
 	public Set<User> getFriends() {
 		return friends;
 	}
 
 	public void setFriends(Set<User> friends) {
 		this.friends = friends;
+	}
+
+	public Set<User> getTeammates() {
+		return teammates;
+	}
+
+	public void setTeammates(Set<User> teammates) {
+		this.teammates = teammates;
 	}
 
 	@Override

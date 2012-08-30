@@ -12,34 +12,36 @@
 		<%@ include file="/WEB-INF/include/sidebar.jsp"%>
 		<div class="content">
 
-			<h1>User Photo Albums</h1>
+			<p class="title">> > > User Photo Albums < < <</p>
+			<br /> <br />
+			<fieldset>
+				<form:form modelAttribute="User" method="GET">
+					<table align="center" border="1">
+						<tr align="left">
+							<th>Album</th>
+							<th>Edit</th>
+							<th>Delete</th>
+						</tr>
+						<c:forEach items="${User.userAlbums}" var="PictureAlbum">
+							<tr align="left">
+								<td width="200">${PictureAlbum.albumName}</td>
+								<td width="70"><a
+									href="<c:url value="updateUserPhotoAlbum.htm?albumId=${PictureAlbum.albumId}"/>">Edit</a></td>
+								<td width="70"><a
+									href="<c:url value="deleteUserPhotoAlbum.htm?albumId=${PictureAlbum.albumId}"/>">Delete</a></td>
+							</tr>
+						</c:forEach>
+						<tr>
+							<td align="center" colspan="3"><a
+								href="<c:url value="addUserPhotoAlbum.htm"/>">Add new album</a></td>
+						</tr>
+					</table>
+				</form:form>
+			</fieldset>
 
-			<c:url var="addUserPhotoAlbumUrl"
-				value="addUserPhotoAlbum.htm?userId=${User.userId}" />
-			<c:url var="updateUserPhotoAlbumUrl"
-				value="updateUserPhotoAlbum.htm?userId=${User.userId}&albumId=${albumId}" />
-			<c:url var="deleteUserPhotoAlbumUrl"
-				value="deleteUserPhotoAlbum.htm?userId=${User.userId}&albumId=${albumId}" />
-			<form:form modelAttribute="User" method="GET"
-				action="${addUserPhotoAlbumUrl}">
-				<table>
-					<tr>
-						<td><select name="albumId" size="2">
-								<c:forEach items="${User.userAlbums}" var="PictureAlbum">
-									<option value="${PictureAlbum.albumId}">${PictureAlbum.albumName}</option>
-								</c:forEach>
-						</select></td>
-					</tr>
-				</table>
-				<input type="submit" value="Add New Photo Album"
-					onClick="this.form.action = '${addUserPhotoAlbumUrl}';" />
-				<input type="submit" value="Edit Photo Album"
-					onClick="this.form.action = '${updateUserPhotoAlbumUrl}';" />
-				<input type="submit" value="Delete Photo Album"
-					onClick="this.form.action = '${deleteUserPhotoAlbumUrl}';" />
-			</form:form>
 		</div>
 		<%@ include file="/WEB-INF/include/footer.jsp"%>
 	</div>
+
 </body>
 </html>

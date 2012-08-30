@@ -16,7 +16,7 @@
 				<br />
 				<br />
 				<fieldset>
-					<table align="center" border="1">
+					<table align="center" border="0">
 						<tr>
 							<td align="left">User Name:</td>
 							<td><form:input path="userName" /></td>
@@ -40,7 +40,6 @@
 					</table>
 				</fieldset>
 			</form:form>
-
 		</div>
 		<%@ include file="/WEB-INF/include/footer.jsp"%>
 	</div>
