@@ -2,6 +2,7 @@ package rs.codecentric.dao;
 
 import java.util.List;
 
+import rs.codecentric.entity.Picture;
 import rs.codecentric.entity.PictureAlbum;
 import rs.codecentric.entity.User;
 
@@ -32,4 +33,8 @@ public interface IUserAdminDAO {
 	public Boolean deletePictureAlbumById(PictureAlbum pictureAlbum);
 	
 	public List<User> getPosibleFriends(Long userId);
+	
+	public Picture getPictureByName(String pictureName);
+	
+	public Picture getPictureById(Long pictureId);
 }

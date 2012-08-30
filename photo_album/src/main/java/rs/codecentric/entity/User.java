@@ -35,7 +35,10 @@ import org.hibernate.annotations.LazyCollectionOption;
  */
 @Entity
 @Table(name = "user")
-@NamedQueries({ @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u ORDER BY u.userId") })
+@NamedQueries({ 
+	@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u ORDER BY u.userId"),
+	@NamedQuery(name = "User.findPosibleFriends", query = "SELECT u FROM User u WHERE NOT u.userId = :userId AND NOT u IN (SELECT fr FROM User cur JOIN cur.friends fr WHERE cur.userId = :curUserId)")
+})
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -7181112174818154537L;

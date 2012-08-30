@@ -176,9 +176,31 @@ public class UserAdminDAO implements IUserAdminDAO {
 	public List<User> getPosibleFriends(Long userId) {
 		List<User> retVal = null;
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "FROM User u WHERE NOT u.userId = :userId";// + condition1;
-		Query select = session.createQuery(hql).setParameter("userId", userId);
+		Query select = session.getNamedQuery("User.findPosibleFriends");
+		select.setParameter("userId", userId);
+		select.setParameter("curUserId", userId);
 		retVal = select.list();
+		return retVal;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Picture getPictureByName(String pictureName) {
+		Picture retVal = null;
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM Picture p WHERE p.name = :pictureName";
+		List<Picture> pictureList = session.createQuery(hql)
+				.setParameter("pictureName", pictureName)
+				.list();
+		if (pictureList != null && !pictureList.isEmpty()) {
+			retVal = pictureList.get(0);
+		}
+		return retVal;
+	}
+
+	public Picture getPictureById(Long pictureId) {
+		Picture retVal = null;
+		Session session = sessionFactory.getCurrentSession();
+		retVal = (Picture) session.get(Picture.class, pictureId);
 		return retVal;
 	}
 }

@@ -7,6 +7,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Photo Album</title>
+<script type="text/javascript">
+	function disableFields() {
+		document.getElementById("userName").readOnly = true;
+		document.getElementById("userPassword").readOnly = true;
+		document.getElementById("userEmail").readOnly = true;
+	}
+	window.onload = disableFields;
+</script>
 </head>
 <body>
 
@@ -19,17 +27,27 @@
 		<table>
 			<tr>
 				<td align="left">User Name:</td>
-				<td><form:input path="userName" /></td>
+				<td><form:input id="userName" path="userName" /></td>
 			</tr>
 
 			<tr>
 				<td align="left">User Password:</td>
-				<td><form:input path="userPassword" /></td>
+				<td><form:input id="userPassword" path="userPassword" /></td>
 			</tr>
 
 			<tr>
 				<td align="left">User Email:</td>
-				<td><form:input path="userEmail" /></td>
+				<td><form:input id="userEmail" path="userEmail" /></td>
+			</tr>
+			<tr>
+				<td align="left">User Friends:</td>
+				<td>
+					<select name="userId" size="2">
+						<c:forEach items="${User.friends}" var="User">
+							<option value="${User.userId}">${User.userName}</option>
+						</c:forEach>
+					</select>
+				</td>
 			</tr>
 		</table>
 

@@ -3,13 +3,18 @@
  */
 package rs.codecentric.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
+import org.jboss.resteasy.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,14 +43,14 @@ public class PictureAlbumController {
 	IUserAdminDAO userService;
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
-	
+
 	@RequestMapping(value = "/allUserPhotoAlbums.htm", method = RequestMethod.POST)
 	public String showAllUserPhotoAlbumsForm(@PathVariable Long userId, Model model) {
 		log.info("Displays all user photo albums page");
 		log.info("User photo albums displayed seccessfully.");
 		return "viewAllUserPhotoAlbums";
 	}
-	
+
 	@RequestMapping(value = "/allUserPhotoAlbums.htm", method = RequestMethod.GET)
 	public String showAllUserPhotoAlbumsFormFromEditPhotoAlbum(@PathVariable Long userId, Model model) {
 		log.info("Displays all user photo albums page");
@@ -72,7 +77,7 @@ public class PictureAlbumController {
 		log.info("Photo album added seccessfully.");
 		return "userPhotoAlbumAdded";
 	}
-	
+
 	@RequestMapping(value = "/updateUserPhotoAlbum.htm", method = RequestMethod.GET)
 	public String showUpdateUserPhotoAlbumForm(@PathVariable Long userId, @RequestParam(value = "albumId", required = true) Long albumId, Model model) {
 		log.info("Displays update user photo albums page");
@@ -84,17 +89,17 @@ public class PictureAlbumController {
 		User user = userService.loadUserById(userId);
 		if (user.getFriends() != null && !user.getFriends().isEmpty()) {
 			Iterator<User> iterator = user.getFriends().iterator();
-			while(iterator.hasNext()){
-			  User friend = iterator.next();
-			  if (friend.getUserAlbums() != null && !friend.getUserAlbums().isEmpty()) {
-				  for(PictureAlbum picAl : friend.getUserAlbums()) {
-					  if(picAl.getAlbumPictures() != null && !picAl.getAlbumPictures().isEmpty()) {
-						  for(Picture pic : picAl.getAlbumPictures()) {
-							  friendsPictures.add(pic);
-						  }
-					  }
-				  }
-			  }
+			while (iterator.hasNext()) {
+				User friend = iterator.next();
+				if (friend.getUserAlbums() != null && !friend.getUserAlbums().isEmpty()) {
+					for (PictureAlbum picAl : friend.getUserAlbums()) {
+						if (picAl.getAlbumPictures() != null && !picAl.getAlbumPictures().isEmpty()) {
+							for (Picture pic : picAl.getAlbumPictures()) {
+								friendsPictures.add(pic);
+							}
+						}
+					}
+				}
 			}
 		}
 		UserPictures4Display userPictures4Display = new UserPictures4Display(pictureAlbum, friendsPictures);
@@ -129,5 +134,17 @@ public class PictureAlbumController {
 		}
 		return "photoAlbumDeleted";
 	}
-	
+
+	@RequestMapping(value = "/getPictureContent.htm", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> getPictureContent(@RequestParam(value = "pictureId", required = true) Long pictureId) throws IOException {
+		Picture picture = userService.getPictureById(pictureId);
+		if (picture != null) {
+			byte[] decodedPictureContent = Base64.decode(picture.getContent());
+			HttpHeaders responseHeaders = new HttpHeaders();
+			return new ResponseEntity<byte[]>(decodedPictureContent, responseHeaders, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
 }
