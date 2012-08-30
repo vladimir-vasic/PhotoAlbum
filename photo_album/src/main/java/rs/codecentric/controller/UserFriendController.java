@@ -26,7 +26,7 @@ import rs.codecentric.entity.User;
  *
  */
 @Controller
-@RequestMapping("/rest/{userId}")
+@RequestMapping("/{userId}")
 @SessionAttributes("User")
 public class UserFriendController {
 
@@ -48,6 +48,8 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 		log.info("Displays friend added page");
 		User user = userService.loadUserById(userId);
 		User userFriend = userService.loadUserById(selUserId);
+		log.info("*** USER: {}", user.getUserName());
+		log.info("*** FRIEND: {}", userFriend.getUserName());
 		if (user.getFriends() == null || user.getFriends().isEmpty()) {
 			user.setFriends(new HashSet<User>());
 		}

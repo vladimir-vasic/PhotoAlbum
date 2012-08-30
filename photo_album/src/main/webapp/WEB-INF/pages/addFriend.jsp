@@ -1,30 +1,41 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="styles/styles.css" rel="stylesheet" type="text/css"></link>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Photo Album</title>
-
+<title>Photo album</title>
 </head>
 <body>
-	<h1>Add Friend</h1>
-	<c:url var="friendAddedUrl" value="friendAdded.htm?userId=${selUserId}" />
-	<form:form modelAttribute="userList" method="POST" action="${friendAddedUrl}">
-		<table>
-			<tr>
-				<td>
-					<select name="selUserId" size="2">
-						<c:forEach items="${userList}" var="User">
-							<option value="${User.userId}">${User.userName}</option>
+	<div class="container">
+		<%@ include file="/WEB-INF/include/header.jsp"%>
+		<%@ include file="/WEB-INF/include/sidebar.jsp"%>
+		<div class="content">
+
+			<form:form modelAttribute="userList" method="POST">
+				<p class="title">> > > Add Friend < < <</p>
+				<br />
+				<br />
+				<fieldset>
+					<table align="center" border="1">
+						<tr align="left">
+							<th>Username</th>
+							<th>Add</th>
+						</tr>
+						<c:forEach var="UserFriend" items="${userList}">
+							<tr align="left">
+								<td width="200">${UserFriend.userName}</td>
+								<td width="70"><a
+									href="<c:url value="friendAdded.htm?userId=${User.userId}&selUserId=${UserFriend.userId}"/>">Add
+										friend</a></td>
+							</tr>
 						</c:forEach>
-					</select>
-				</td>
-			</tr>
-		</table>
-		<input type="submit" value="Add Friend" onClick="this.form.action = '${friendAddedUrl}';"/>
-	</form:form>
+					</table>
+				</fieldset>
+			</form:form>
+
+		</div>
+		<%@ include file="/WEB-INF/include/footer.jsp"%>
+	</div>
 </body>
 </html>

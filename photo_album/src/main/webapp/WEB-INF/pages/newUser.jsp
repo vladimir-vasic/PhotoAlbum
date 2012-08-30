@@ -1,38 +1,48 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="styles/styles.css" rel="stylesheet" type="text/css"></link>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Photo Album</title>
+<title>Photo album</title>
 </head>
 <body>
+	<div class="container">
+		<%@ include file="/WEB-INF/include/header.jsp"%>
+		<%@ include file="/WEB-INF/include/sidebar.jsp"%>
+		<div class="content">
+			<form:form modelAttribute="User" method="POST">
+				<p class="title">> > > Create New User < < <</p>
+				<br />
+				<br />
+				<fieldset>
+					<table align="center" border="1">
+						<tr>
+							<td align="left">User Name:</td>
+							<td><form:input path="userName" /></td>
+						</tr>
 
-	<h1>Create New User</h1>
+						<tr>
+							<td align="left">User Password:</td>
+							<td><form:input path="userPassword" /></td>
+						</tr>
 
-	<c:url var="saveUrl" value="/rest/newUser.htm" />
-	<form:form modelAttribute="User" method="POST" action="${saveUrl}">
-		<table>
-			<tr>
-				<td align="left">User Name:</td>
-				<td><form:input path="userName" /></td>
-			</tr>
+						<tr>
+							<td align="left">User Email:</td>
+							<td><form:input path="userEmail" /></td>
+						</tr>
+						<tr>
+							<td align="center"><br /> <br /> <input type="submit"
+								value="Add" /></td>
+							<td align="center" colspan="2"><br /> <br /> <input
+								type="reset" value="Cancel" /></td>
+						</tr>
+					</table>
+				</fieldset>
+			</form:form>
 
-			<tr>
-				<td align="left">User Password:</td>
-				<td><form:input path="userPassword" /></td>
-			</tr>
-
-			<tr>
-				<td align="left">User Email:</td>
-				<td><form:input path="userEmail" /></td>
-			</tr>
-		</table>
-
-		<input type="submit" value="Save" />
-	</form:form>
-
+		</div>
+		<%@ include file="/WEB-INF/include/footer.jsp"%>
+	</div>
 </body>
 </html>

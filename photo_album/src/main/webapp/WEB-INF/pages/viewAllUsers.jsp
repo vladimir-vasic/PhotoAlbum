@@ -1,36 +1,40 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="styles/styles.css" rel="stylesheet" type="text/css"></link>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Photo Album</title>
+<title>Photo album</title>
 </head>
 <body>
+	<div class="container">
+		<%@ include file="/WEB-INF/include/header.jsp"%>
+		<%@ include file="/WEB-INF/include/sidebar.jsp"%>
+		<div class="content">
 
-	<h1>User Administration</h1>
+			<p class="title">> > > User Administration < < <</p>
+			<br /> <br />
+			<fieldset>
+				<table align="center" border="1">
+					<tr align="left">
+						<th>Username</th>
+						<th>Edit</th>
+						<th>Delete</th>
+					</tr>
+					<c:forEach var="User" items="${userList}">
+						<tr align="left">
+							<td width="200">${User.userName}</td>
+							<td width="70"><a
+								href="<c:url value="editUser.htm?userId=${User.userId}"/>">Edit</a></td>
+							<td width="70"><a
+								href="<c:url value="deleteUser.htm?userId=${User.userId}"/>">Delete</a></td>
+						</tr>
+					</c:forEach>
+				</table>
+			</fieldset>
 
-	<c:url var="addUserUrl" value="/rest/newUser.htm" />
-	<c:url var="editUserUrl" value="/rest/editUser.htm?userId=${userId}" />
-	<c:url var="deleteUserUrl" value="/rest/deleteUser.htm?userId=${userId}" />
-	<form:form modelAttribute="userList" method="GET" action="${editUserUrl}">
-		<table>
-			<tr>
-				<td>
-					<select name="userId" size="2">
-						<c:forEach items="${userList}" var="User">
-							<option value="${User.userId}">${User.userName}</option>
-						</c:forEach>
-					</select>
-				</td>
-			</tr>
-		</table>
-		<input type="submit" value="Add New" onClick="this.form.action = '${addUserUrl}';"/>
-		<input type="submit" value="Edit" onClick="this.form.action = '${editUserUrl}';"/>
-		<input type="submit" value="Delete" onClick="this.form.action = '${deleteUserUrl}';"/>
-	</form:form>
-
+		</div>
+		<%@ include file="/WEB-INF/include/footer.jsp"%>
+	</div>
 </body>
 </html>

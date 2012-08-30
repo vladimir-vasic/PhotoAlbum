@@ -49,7 +49,8 @@ public class UserAdminController {
 
 	@RequestMapping(value = "/newUser.htm", method = RequestMethod.POST)
 	public String createNewUser(@ModelAttribute("User") User user) {
-		log.info(MessageFormatter.arrayFormat("Trying to crete new user with params: userName - {} | userPassword - {} | userEmail - {}", new Object[] { user.getUserName(), user.getUserPassword(), user.getUserEmail() }).getMessage());
+		log.info(MessageFormatter.arrayFormat("Trying to crete new user with params: userName - {} | userPassword - {} | userEmail - {}",
+				new Object[] { user.getUserName(), user.getUserPassword(), user.getUserEmail() }).getMessage());
 		userService.createNewUser(user.getUserName(), user.getUserPassword(), user.getUserEmail());
 		log.info("New user created seccessfully.");
 		return "redirect:redirect.htm?msg=userAdded";
@@ -70,15 +71,19 @@ public class UserAdminController {
 		model.addAttribute("User", user);
 		return "editUser";
 	}
-
-	@RequestMapping(value = "/updateUser.htm", method = RequestMethod.POST)
+	@RequestMapping(value = "/editMyUser.htm", method = RequestMethod.GET)
+	public String editMyUser() {
+		log.info("Displays user edit page");
+		return "editUser";
+	}
+	@RequestMapping(value = "/editUser.htm", method = RequestMethod.POST)
 	public String showUpdatedUserForm(@RequestParam(value = "userId", required = true) Long userId, @ModelAttribute("User") User user) {
 		log.info("Displays updated user page");
 		userService.updateUser(user);
 		log.info("User updated seccessfully.");
-		return "userUpdated";
+		return "redirect:redirect.htm?msg=userUpdated";
 	}
-	
+
 	@RequestMapping(value = "/deleteUser.htm", method = RequestMethod.GET)
 	public String showDeleteUserForm(@RequestParam(value = "userId", required = true) Long userId, Model model) {
 		log.info("Displays user delete page");
@@ -92,9 +97,9 @@ public class UserAdminController {
 		log.info("Displays deleted user page");
 		userService.deleteUser(user);
 		log.info("User deleted seccessfully.");
-		return "userDeleted";
+		return "redirect:redirect.htm?msg=userDeleted";
 	}
-	
+
 	// @RequestMapping(value="/user", method = RequestMethod.POST)
 	// public Response createNewUserJson(
 	// @RequestParam(value="userName", required=true) String userName,
@@ -107,28 +112,5 @@ public class UserAdminController {
 	// log.info("New user created seccessfully.");
 	// return RestUtil.getResponseOkJSon("", result);
 	// }
-
-	@RequestMapping(value = "/album/{userId}", method = RequestMethod.GET)
-	public ModelAndView getAllAlbums4User(@PathVariable String userId, ModelMap model) {
-		Long userIdTmp;
-		try {
-			userIdTmp = Long.parseLong(userId);
-		} catch (NumberFormatException exc) {
-			log.error(MessageFormatter.format("Invalid userId format: {}", userId).getMessage(), exc);
-			return null;
-		}
-		List<PictureAlbum> albumList = userService.getAllPictureAlbums4User(userIdTmp);
-		ModelAndView mav = new ModelAndView("getAllAlbums4User", BindingResult.MODEL_KEY_PREFIX + "albumsAttribute", albumList);
-		return mav;
-	}
-
-	@RequestMapping(value = "/user/{userName}/{userPassword}", method = RequestMethod.GET)
-	public String loadUserByUsrPwd(@PathVariable String userName, @PathVariable String userPassword, ModelMap model) {
-		log.info("Trying to load user by username and password");
-		User result = userService.loadUserByUsrPwd(userName, userPassword);
-		model.addAttribute("userName", result.getUserName());
-		return "list";
-
-	}
 
 }

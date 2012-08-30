@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <html>
 <head>
-<link href="style/style.css" rel="stylesheet" type="text/css"></link>
+<link href="styles/styles.css" rel="stylesheet" type="text/css"></link>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Photo album</title>
 </head>

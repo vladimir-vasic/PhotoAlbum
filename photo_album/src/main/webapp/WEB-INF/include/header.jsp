@@ -1,14 +1,13 @@
 <%@ include file="/WEB-INF/include/include.jsp"%>
 
 <div class="header">
-	<br />
-	<br />
+	<br /> <br />
 	<h1 class="header">Photo album</h1>
 	<br />
 
 
 	<security:authorize ifAllGranted="ROLE_USER">
-		Welcome <security:authentication property="principal.username" />
+		Welcome ${User.userName}
 		&nbsp;|&nbsp;
 		<a href="index.htm">Home</a>&nbsp; | &nbsp;
 				<a href="login.htm"> Login </a>&nbsp; | &nbsp;

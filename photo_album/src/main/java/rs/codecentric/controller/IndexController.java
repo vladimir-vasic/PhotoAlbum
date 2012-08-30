@@ -9,10 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import rs.codecentric.dao.ILoginDAO;
 
 @Controller
+@SessionAttributes("User")
 public class IndexController {
 
 	@Autowired
@@ -22,13 +24,11 @@ public class IndexController {
 	@RequestMapping(value = "/index.htm", method = RequestMethod.GET)
 	public String onGet(ModelMap model) {
 
-		User u = (User) SecurityContextHolder.getContext().getAuthentication()
-				.getPrincipal();
+		User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = u.getUsername();
 
-		rs.codecentric.entity.User user = loginService
-				.getUserByUsername(userName);
-		model.addAttribute("user", user);
+		rs.codecentric.entity.User user = loginService.getUserByUsername(userName);
+		model.addAttribute("User", user);
 
 		log.info("+++++++++++++++INDEX++++++++++++++++++");
 

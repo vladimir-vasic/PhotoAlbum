@@ -1,42 +1,52 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="styles/styles.css" rel="stylesheet" type="text/css"></link>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Photo Album</title>
+<title>Photo album</title>
 </head>
 <body>
+	<div class="container">
+		<%@ include file="/WEB-INF/include/header.jsp"%>
+		<%@ include file="/WEB-INF/include/sidebar.jsp"%>
+		<div class="content">
 
-	<h1>Update User</h1>
+			<p class="title">> > > Update User < < <</p>
+			<br /> <br />
+			<fieldset>
 
-	<c:url var="updateUserUrl" value="/rest/updateUser.htm?userId=${User.userId}" />
-	<c:url var="alluserphotoalbums" value="/rest/${User.userId}/allUserPhotoAlbums.htm" />
-	<c:url var="addFriendUrl" value="/rest/${User.userId}/addFriend.htm" />
-	<form:form modelAttribute="User" method="POST" action="${updateUserUrl}">
-		<table>
-			<tr>
-				<td align="left">User Name:</td>
-				<td><form:input path="userName" /></td>
-			</tr>
+				<form:form modelAttribute="User" method="POST">
 
-			<tr>
-				<td align="left">User Password:</td>
-				<td><form:input path="userPassword" /></td>
-			</tr>
+					<table border="0" align="center">
+						<tr>
+							<td align="left">User Name:</td>
+							<td><form:input path="userName" /></td>
+						</tr>
 
-			<tr>
-				<td align="left">User Email:</td>
-				<td><form:input path="userEmail" /></td>
-			</tr>
-		</table>
+						<tr>
+							<td align="left">User Password:</td>
+							<td><form:input path="userPassword" /></td>
+						</tr>
 
-		<input type="submit" value="Update" onClick="this.form.action = '${updateUserUrl}';"/>
-		<input type="submit" value="View Photo Albums" onClick="this.form.action = '${alluserphotoalbums}';"/>
-		<input type="submit" value="Add Friend" onClick="this.form.action = '${addFriendUrl}';"/>
-	</form:form>
+						<tr>
+							<td align="left">User Email:</td>
+							<td><form:input path="userEmail" /></td>
+						</tr>
+						<tr>
+							<td align="center"><br /> <br /> <input type="submit"
+								value="Update" /></td>
+							<td align="center" colspan="2"><br /> <br /> <input
+								type="reset" value="Cancel" /></td>
+						</tr>
+					</table>
 
+				</form:form>
+
+			</fieldset>
+
+		</div>
+		<%@ include file="/WEB-INF/include/footer.jsp"%>
+	</div>
 </body>
 </html>

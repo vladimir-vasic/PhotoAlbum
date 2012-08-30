@@ -5,6 +5,7 @@ package rs.codecentric.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import rs.codecentric.dao.IUserAdminDAO;
+import rs.codecentric.dto.UserPictures4Display;
 import rs.codecentric.entity.Picture;
 import rs.codecentric.entity.PictureAlbum;
 import rs.codecentric.entity.User;
@@ -28,7 +30,7 @@ import rs.codecentric.entity.User;
  * 
  */
 @Controller
-@RequestMapping("/rest/{userId}")
+@RequestMapping("/{userId}")
 @SessionAttributes("PictureAlbum")
 public class PictureAlbumController {
 
@@ -39,6 +41,13 @@ public class PictureAlbumController {
 	
 	@RequestMapping(value = "/allUserPhotoAlbums.htm", method = RequestMethod.POST)
 	public String showAllUserPhotoAlbumsForm(@PathVariable Long userId, Model model) {
+		log.info("Displays all user photo albums page");
+		log.info("User photo albums displayed seccessfully.");
+		return "viewAllUserPhotoAlbums";
+	}
+	
+	@RequestMapping(value = "/allUserPhotoAlbums.htm", method = RequestMethod.GET)
+	public String showAllUserPhotoAlbumsFormFromEditPhotoAlbum(@PathVariable Long userId, Model model) {
 		log.info("Displays all user photo albums page");
 		log.info("User photo albums displayed seccessfully.");
 		return "viewAllUserPhotoAlbums";
@@ -71,7 +80,25 @@ public class PictureAlbumController {
 		if (pictureAlbum.getAlbumPictures() == null || pictureAlbum.getAlbumPictures().isEmpty()) {
 			pictureAlbum.setAlbumPictures(new ArrayList<Picture>());
 		}
-		model.addAttribute("PictureAlbum", pictureAlbum);
+		ArrayList<Picture> friendsPictures = new ArrayList<Picture>();
+		User user = userService.loadUserById(userId);
+		if (user.getFriends() != null && !user.getFriends().isEmpty()) {
+			Iterator<User> iterator = user.getFriends().iterator();
+			while(iterator.hasNext()){
+			  User friend = iterator.next();
+			  if (friend.getUserAlbums() != null && !friend.getUserAlbums().isEmpty()) {
+				  for(PictureAlbum picAl : friend.getUserAlbums()) {
+					  if(picAl.getAlbumPictures() != null && !picAl.getAlbumPictures().isEmpty()) {
+						  for(Picture pic : picAl.getAlbumPictures()) {
+							  friendsPictures.add(pic);
+						  }
+					  }
+				  }
+			  }
+			}
+		}
+		UserPictures4Display userPictures4Display = new UserPictures4Display(pictureAlbum, friendsPictures);
+		model.addAttribute("UserPictures4Display", userPictures4Display);
 		return "editPhotoAlbum";
 	}
 

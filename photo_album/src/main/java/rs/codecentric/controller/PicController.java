@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import rs.codecentric.dao.IUserAdminDAO;
 import rs.codecentric.dto.UploadItem;
+import rs.codecentric.dto.UserPictures4Display;
 import rs.codecentric.entity.Picture;
 import rs.codecentric.entity.PictureAlbum;
 import rs.codecentric.entity.User;
@@ -30,7 +31,7 @@ import rs.codecentric.entity.User;
  * 
  */
 @Controller
-@RequestMapping("/rest/{userId}/updatePhotoAlbum/{albumId}")
+@RequestMapping("/{userId}/updatePhotoAlbum/{albumId}")
 @SessionAttributes("UploadItem")
 public class PicController {
 
@@ -69,30 +70,32 @@ public class PicController {
 				log.info("PICTURE ALBUM NOT UPDATED!!!");
 			}
 		}
+		
+		ArrayList<Picture> friendsPictures = new ArrayList<Picture>();
+		User user = userService.loadUserById(userId);
+		if (user.getFriends() != null && !user.getFriends().isEmpty()) {
+			Iterator<User> iterator = user.getFriends().iterator();
+			while(iterator.hasNext()){
+			  User friend = iterator.next();
+			  if (friend.getUserAlbums() != null && !friend.getUserAlbums().isEmpty()) {
+				  for(PictureAlbum picAl : friend.getUserAlbums()) {
+					  if(picAl.getAlbumPictures() != null && !picAl.getAlbumPictures().isEmpty()) {
+						  for(Picture pic : picAl.getAlbumPictures()) {
+							  friendsPictures.add(pic);
+						  }
+					  }
+				  }
+			  }
+			}
+		}
+		
 		PictureAlbum pictureAlbum = userService.loadPictureAlbumById(albumId);
-		model.addAttribute("PictureAlbum", pictureAlbum);
+		
+		UserPictures4Display userPictures4Display = new UserPictures4Display(pictureAlbum, friendsPictures);
+		
+		model.addAttribute("UserPictures4Display", userPictures4Display);
 		return "editPhotoAlbum";
 	}
 
-	@RequestMapping(value = "/getFriendsPictures", method = RequestMethod.GET)
-	public byte[] getFriendsPictures(@PathVariable Long userId) {
-		byte[] retVal = null;
-		User user = userService.loadUserById(userId);
-		Iterator<User> it = user.getFriends().iterator();
-		while (it.hasNext()) {
-			User value = (User) it.next();
-			if (value.getUserAlbums() != null && !value.getUserAlbums().isEmpty()) {
-				for (PictureAlbum picAl : value.getUserAlbums()) {
-					if (picAl.getAlbumPictures() != null && !picAl.getAlbumPictures().isEmpty()) {
-						for (Picture pic : picAl.getAlbumPictures()) {
-							retVal = pic.getContent();
-							log.info("*** IMA SLIKA: {}", picAl.getAlbumPictures().size());
-						}
-					}
-				}
-			}
-		}
-		return retVal;
-	}
 
 }
