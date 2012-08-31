@@ -3,13 +3,18 @@
  */
 package rs.codecentric.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
+import org.jboss.resteasy.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -139,6 +144,18 @@ public class PictureAlbumController {
 			}
 		}
 		return "redirect:redirect.htm?msg=photoAlbumDeleted";
+	}
+
+	@RequestMapping(value = "/getPictureContent.htm", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> getPictureContent(@RequestParam(value = "pictureId", required = true) Long pictureId) throws IOException {
+		Picture picture = userService.getPictureById(pictureId);
+		if (picture != null) {
+			byte[] decodedPictureContent = Base64.decode(picture.getContent());
+			HttpHeaders responseHeaders = new HttpHeaders();
+			return new ResponseEntity<byte[]>(decodedPictureContent, responseHeaders, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		}
 	}
 
 }

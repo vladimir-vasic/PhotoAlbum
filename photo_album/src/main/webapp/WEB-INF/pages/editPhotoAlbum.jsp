@@ -5,29 +5,18 @@
 <link href="styles/styles.css" rel="stylesheet" type="text/css"></link>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Photo Album</title>
-<script language="javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js">
-	function showPic(sUrl) {
-		var x, y;
-		x = event.clientX;
-		y = event.clientY;
-		document.getElementById("Layer1").style.left = x;
-		document.getElementById("Layer1").style.top = y;
-		document.getElementById("Layer1").innerHTML = "<img height=200 width=400 src=\"" + sUrl + "\">";
-		document.getElementById("Layer1").style.display = "block";
+<script type="text/javascript">
+	function OpenNewWindow(bigurl)
+	{
+	    var newWindow = window.open("", "pictureViewer", "location=no, directories=no, fullscreen=no, menubar=no, status=no, toolbar=no, width=500, height=500, scrollbars=no");
+	    newWindow.document.writeln("<html>");
+	    newWindow.document.writeln("<body style='margin: 0 0 0 0;'>");
+	    newWindow.document.writeln("<a href='javascript:window.close();'>");
+	    newWindow.document.writeln("<img src='" + bigurl + "' alt='Click to close' id='bigImage'/>");
+	    newWindow.document.writeln("</a>");
+	    newWindow.document.writeln("</body></html>");
+	    newWindow.document.close();
 	}
-	function hiddenPic() {
-		document.getElementById("Layer1").innerHTML = "";
-		document.getElementById("Layer1").style.display = "none";
-	}
-
-	function newWin(picture) {
-		var newWindow = window.open("", "pictureViewer", "scrollbars=yes, resizable=yes, width=300, height=300");
-		newWindow.document.writeln("<html>_____________________________________<body style='
-		: 0 0 0 0;'>cument.writeln("_$tag___________________________________________$tag__$tag__________________________");
-		newWindow.document.writeln("<a href='javascript:window.close();'>");
-		newWindow.document
-				.writeln("<img src='data:image/jpg/png;base64,_$tag__valu_____________________________________close' id='big_______________________$tag_______________
 </script>
 </head>
 <body>
@@ -53,11 +42,17 @@
 							var="Picture">
 							<tr align="left">
 								<td width="200">${Picture.name}</td>
-								<td align="center"><img
-									src="data:image/jpg/png;base64,<c:out value='${Picture.contentString}'/>"
-									width=50 height=50 alt='${Picture.name}' /></td>
+								<td align="center"><a href="#"
+									onclick="OpenNewWindow('getPictureContent.htm?pictureId=${Picture.pictureId}'); return true;">
+										<img
+										src="getPictureContent.htm?pictureId=${Picture.pictureId}"
+										width=50 height=50 alt='${Picture.name}' />
+								</a></td>
 							</tr>
+
 						</c:forEach>
+
+
 						<tr>
 							<td align="center" colspan="2"><a
 								href="<c:url value="addPictureToPhotoAlbum.htm?albumId=${UserPictures4Display.userPictureAlbum.albumId}"/>">Add
@@ -72,9 +67,12 @@
 						<tr>
 							<td><c:forEach
 									items="${UserPictures4Display.friendsPictures}" var="Picture">
-									<a href="javascript:newWin('${Picture.contentString}')"><img
-										src="data:image/jpg/png;base64,<c:out value='${Picture.contentString}'/>"
-										width=50 height=50 alt='${Picture.name}' /></a>
+									<a href="#"
+										onclick="OpenNewWindow('getPictureContent.htm?pictureId=${Picture.pictureId}'); return true;">
+										<img
+										src="getPictureContent.htm?pictureId=${Picture.pictureId}"
+										width=50 height=50 alt='${Picture.name}' />
+									</a>
 								</c:forEach></td>
 						</tr>
 					</table>
@@ -83,5 +81,6 @@
 		</div>
 		<%@ include file="/WEB-INF/include/footer.jsp"%>
 	</div>
+
 </body>
 </html>
