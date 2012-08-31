@@ -119,8 +119,7 @@ public class UserAdminDAO implements IUserAdminDAO {
 		try {
 			log.info("Updating user...");
 			Session session = sessionFactory.getCurrentSession();
-			session.update(user);
-			session.flush();
+			session.merge(user);//update(user);
 			retVal = Boolean.TRUE;
 		} catch (HibernateException exc) {
 			log.error("ERROR WHILE UPDATING USER", exc);
