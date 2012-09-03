@@ -32,11 +32,11 @@
 							<td align="left"><label for="j_password">Password:</label></td>
 							<td><input type="password" name="j_password" id="j_password" /></td>
 						</tr>
-						<tr>
+						<!-- 	<tr>
 							<td><input type='checkbox'
 								name='_spring_security_remember_me' class="checkbox"
 								value="true" checked="checked" /> Remember me.</td>
-						</tr>
+						</tr> -->
 						<tr>
 							<td><input type="submit" value="Submit"></td>
 							<td><input type="reset" value="Cancel" /></td>

@@ -41,6 +41,7 @@ public class UserAdminDAO implements IUserAdminDAO {
 		user.setUserPassword(userPassword);
 		user.setUserEmail(userEmail);
 		user.setCreateDateTime(new Date());
+		user.setRole("ROLE_USER");
 		session.save(user);
 		retVal = Boolean.TRUE;
 		return retVal;

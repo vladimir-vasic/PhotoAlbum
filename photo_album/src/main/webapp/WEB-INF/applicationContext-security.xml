@@ -28,7 +28,7 @@
 				data-source-ref="dataSource"
 				users-by-username-query="SELECT 
 				user_name as username, user_password as password, 1 as enabled FROM User WHERE user_name=?"
-				authorities-by-username-query="SELECT user_name as username,'ROLE_USER' as authority FROM User WHERE user_name=?" />
+				authorities-by-username-query="SELECT user_name as username, role as authority FROM User WHERE user_name=?" />
 		</security:authentication-provider>
 	</security:authentication-manager>
 </beans>

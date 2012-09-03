@@ -39,12 +39,12 @@ public class UserAdminController {
 	@RequestMapping(value = "/newUser.htm", method = RequestMethod.GET)
 	public String showNewUserSubscribeForm(ModelMap model) {
 		log.info("Displays new user submit page");
-		model.addAttribute("User", new User());
+		model.addAttribute("newUser", new User());
 		return "newUser";
 	}
 
 	@RequestMapping(value = "/newUser.htm", method = RequestMethod.POST)
-	public String createNewUser(@ModelAttribute("User") User user) {
+	public String createNewUser(@ModelAttribute("newUser") User user) {
 		log.info(MessageFormatter.arrayFormat("Trying to crete new user with params: userName - {} | userPassword - {} | userEmail - {}",
 				new Object[] { user.getUserName(), user.getUserPassword(), user.getUserEmail() }).getMessage());
 		userService.createNewUser(user.getUserName(), user.getUserPassword(), user.getUserEmail());
