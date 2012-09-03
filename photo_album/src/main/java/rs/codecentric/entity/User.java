@@ -70,6 +70,9 @@ public class User implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_datetime")
 	private Date updateDateTime;
+	
+	@Column(name = "role")
+	private String role;
 
 	@ManyToMany(cascade={CascadeType.ALL})
     @JoinTable(name="user_friend", joinColumns={@JoinColumn(name="user_id")}, inverseJoinColumns={@JoinColumn(name="friend_id")})
@@ -144,6 +147,14 @@ public class User implements Serializable {
 		this.updateDateTime = updateDateTime;
 	}
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
 	public Set<User> getFriends() {
 		return friends;
 	}

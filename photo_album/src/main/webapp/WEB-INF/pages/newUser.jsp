@@ -11,7 +11,7 @@
 		<%@ include file="/WEB-INF/include/header.jsp"%>
 		<%@ include file="/WEB-INF/include/sidebar.jsp"%>
 		<div class="content">
-			<form:form modelAttribute="User" method="POST">
+			<form:form modelAttribute="newUser" method="POST">
 				<p class="title">> > > Create New User < < <</p>
 				<br />
 				<br />

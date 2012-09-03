@@ -6,14 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Photo Album</title>
-<script type="text/javascript">
-	function disableFields() {
-		document.getElementById("userName").readOnly = true;
-		document.getElementById("userPassword").readOnly = true;
-		document.getElementById("userEmail").readOnly = true;
-	}
-	window.onload = disableFields;
-</script>
 </head>
 <body>
 	<div class="container">
