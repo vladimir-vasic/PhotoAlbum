@@ -17,6 +17,8 @@ public class UserPictures4Display {
 	private PictureAlbum userPictureAlbum;
 	private ArrayList<Picture> friendsPictures;
 	
+	public UserPictures4Display(){}
+	
 	/**
 	 * @param userPictureAlbum
 	 * @param friendsPictures

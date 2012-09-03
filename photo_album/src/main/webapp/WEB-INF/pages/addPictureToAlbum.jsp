@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
 <link href="styles/styles.css" rel="stylesheet" type="text/css"></link>
@@ -13,18 +12,10 @@
 		<div class="content">
 			<h1>Add New Picture to Album</h1>
 			<c:url var="pictureAddToAlbum" value="addPictureToPhotoAlbum.htm" />
-			<form:form modelAttribute="UploadItem" method="post"
-				enctype="multipart/form-data">
+			<form:form modelAttribute="UploadItem" method="post" enctype="multipart/form-data">
 				<fieldset>
 					<legend>Upload Fields</legend>
-
-					<!--                 <p> -->
-					<%--                     <form:label for="name" path="name">Name</form:label><br/> --%>
-					<%--                     <form:input path="name"/> --%>
-					<!--                 </p> -->
-
 					<p>
-						<%--                     <form:label for="fileData" path="fileData">File</form:label><br/> --%>
 						<form:input id="fileUpload" path="fileData" type="file" />
 					</p>
 

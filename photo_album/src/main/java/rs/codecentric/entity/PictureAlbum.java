@@ -50,7 +50,7 @@ public class PictureAlbum implements Serializable {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Picture> albumPictures;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User albumOwner;
 

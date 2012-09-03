@@ -18,45 +18,47 @@
 	    newWindow.document.close();
 	}
 </script>
+<script language="javascript" type="text/javascript">
+	var scrt_var = 10; 
+	function updatePage(albumId) {
+// 		var pom = ${UserPictures4Display.userPictureAlbum.albumId};
+// 		alert("updatePhotoAlbumName.htm?albumId=${UserPictures4Display.userPictureAlbum.albumId}&newAlbumName=" + document.getElementById("albumName").value);
+		location.href = "updatePhotoAlbumName.htm?albumId=${UserPictures4Display.userPictureAlbum.albumId}&newAlbumName=" + document.getElementById("albumName").value;
+	}
+</script>
 </head>
 <body>
 	<div class="container">
 		<%@ include file="/WEB-INF/include/header.jsp"%>
 		<%@ include file="/WEB-INF/include/sidebar.jsp"%>
 		<div class="content">
-			<div id="Layer1"
-				style="display: none; position: absolute; z-index: 1;"></div>
 			<p class="title">> > > Update Photo Album < < <</p>
 			<br /> <br />
 			<fieldset>
-				<form:form modelAttribute="UserPictures4Display" method="GET"
-					action="${allUserPhotoAlbumsUrl}">
+				<form:form modelAttribute="UserPictures4Display" method="GET" action="${allUserPhotoAlbumsUrl}">
 					<table>
 						<tr>
 							<td align="left">Photo Album Name:</td>
-							<td><form:input path="userPictureAlbum.albumName" /></td>
+							<td><form:input path="userPictureAlbum.albumName" id="albumName"/></td>
+							<td>
+								<a href="javascript:updatePage()">update</a>
+							</td>
 						</tr>
-
-						<c:forEach
-							items="${UserPictures4Display.userPictureAlbum.albumPictures}"
-							var="Picture">
+						<c:forEach items="${UserPictures4Display.userPictureAlbum.albumPictures}" var="Picture">
 							<tr align="left">
 								<td width="200">${Picture.name}</td>
-								<td align="center"><a href="#"
-									onclick="OpenNewWindow('getPictureContent.htm?pictureId=${Picture.pictureId}'); return true;">
-										<img
-										src="getPictureContent.htm?pictureId=${Picture.pictureId}"
-										width=50 height=50 alt='${Picture.name}' />
-								</a></td>
+								<td align="center">
+									<a href="#" onclick="OpenNewWindow('getPictureContent.htm?pictureId=${Picture.pictureId}'); return true;">
+										<img src="getPictureContent.htm?pictureId=${Picture.pictureId}" width=50 height=50 alt='${Picture.name}' />
+									</a>
+								</td>
 							</tr>
-
 						</c:forEach>
 
-
 						<tr>
-							<td align="center" colspan="2"><a
-								href="<c:url value="addPictureToPhotoAlbum.htm?albumId=${UserPictures4Display.userPictureAlbum.albumId}"/>">Add
-									Picture To Photo Album</a></td>
+							<td align="center" colspan="2">
+								<a href="<c:url value="addPictureToPhotoAlbum.htm?albumId=${UserPictures4Display.userPictureAlbum.albumId}"/>">Add Picture To Photo Album</a>
+							</td>
 						</tr>
 					</table>
 
@@ -65,15 +67,13 @@
 							<td>Friends Pictures</td>
 						</tr>
 						<tr>
-							<td><c:forEach
-									items="${UserPictures4Display.friendsPictures}" var="Picture">
-									<a href="#"
-										onclick="OpenNewWindow('getPictureContent.htm?pictureId=${Picture.pictureId}'); return true;">
-										<img
-										src="getPictureContent.htm?pictureId=${Picture.pictureId}"
-										width=50 height=50 alt='${Picture.name}' />
+							<td>
+								<c:forEach items="${UserPictures4Display.friendsPictures}" var="Picture">
+									<a href="#" onclick="OpenNewWindow('getPictureContent.htm?pictureId=${Picture.pictureId}'); return true;">
+										<img src="getPictureContent.htm?pictureId=${Picture.pictureId}" width=50 height=50 alt='${Picture.name}' />
 									</a>
-								</c:forEach></td>
+								</c:forEach>
+							</td>
 						</tr>
 					</table>
 				</form:form>

@@ -114,6 +114,7 @@ public class PictureAlbumController {
 		}
 		UserPictures4Display userPictures4Display = new UserPictures4Display(pictureAlbum, friendsPictures);
 		model.addAttribute("UserPictures4Display", userPictures4Display);
+		model.addAttribute("PictureAlbum", pictureAlbum);
 		return "editPhotoAlbum";
 	}
 
@@ -158,4 +159,17 @@ public class PictureAlbumController {
 		}
 	}
 
+	@RequestMapping(value = "/updatePhotoAlbumName.htm", method = RequestMethod.GET)
+	public String updatePhotoAlbumName(@RequestParam(value = "albumId", required = true) Long albumId,
+			@RequestParam(value = "newAlbumName", required = true) String newAlbumName,
+			Model model) {
+		log.info("*** UPDATING ALBUM NAME: {}", newAlbumName);
+		PictureAlbum pictureAlbum = userService.loadPictureAlbumById(albumId);
+		pictureAlbum.setAlbumName(newAlbumName);
+		userService.updatePictureAlbum(pictureAlbum);
+		User user = userService.loadUserById(pictureAlbum.getAlbumOwner().getUserId());
+		model.addAttribute("User", user);
+		return "viewAllUserPhotoAlbums";
+	}
+	
 }
